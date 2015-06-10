@@ -1,0 +1,78 @@
+{
+	"cardname":	"<!--#exec cgi="BOARD_NAME" -->",
+	"customcss": "<!--#exec cgi="CUSTOM_CSS" -->",
+	"customjs":	"<!--#exec cgi="CUSTOM_JS" -->",
+	"authentication":	{
+		"login":	"<!--#exec cgi=LOGIN" -->"
+	},
+	"io":	{
+		"relays":	[{
+				"name":	"<!--#exec cgi="NAME_R1" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_R2" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_R3" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_R4" -->"
+			}],
+		"inputs":	[{
+				"name":	"<!--#exec cgi="NAME_I1" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_I2" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_I3" -->"
+			}, {
+				"name":	"<!--#exec cgi="NAME_I4" -->"
+			}],
+		"analog":	{
+			"name":	"<!--#exec cgi="NAME_AN" -->",
+			"alarmvalue":	"<!--#exec cgi="AN_ALARM_VAL" -->"
+		}
+	},
+	"network":	{
+		"dhcpenable":	"<!--#exec cgi="DHCP_ON" -->",
+		"webserverport":	<!--#exec cgi="WEB_PORT" -->,
+		"ipaddress":	"<!--#exec cgi="LOCAL_IP" -->",
+		"gateway":	"<!--#exec cgi="GATEWAY" -->",
+		"subnetmask":	"<!--#exec cgi="SUBNETMASK" -->",
+		"primarydns":	"<!--#exec cgi="PRIMARY_DNS" -->",
+		"secondarydns":	"<!--#exec cgi="SECONDARY_DNS" -->"
+	},
+	"email":	{
+		"smtpserver":	"<!--#exec cgi="SMTP_SERVER" -->",
+		"smtpport":		<!--#exec cgi="SMTP_PORT" -->,
+		"usessltls":	<!--#exec cgi="SMTP_TLS" -->,
+		"username":	"<!--#exec cgi="SMTP_USER" -->"
+	},
+	"notifications":	[{
+			"enable":	<!--#exec cgi="NOTIF_1_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_1_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_2_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_2_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_3_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_3_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_4_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_4_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_5_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_5_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_6_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_6_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_7_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_7_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_8_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_8_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_9_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_9_ADDR" -->"
+		}, {
+			"enable":	<!--#exec cgi="NOTIF_10_ON" -->,
+			"recipients":	"<!--#exec cgi="NOTIF_10_ADDR" -->"
+		}]
+}

@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="common" displayName="common" projectFiles="true">
+        <logicalFolder name="freertos" displayName="freertos" projectFiles="true">
+          <logicalFolder name="include" displayName="include" projectFiles="true">
+            <itemPath>common/freertos/include/croutine.h</itemPath>
+            <itemPath>common/freertos/include/event_groups.h</itemPath>
+            <itemPath>common/freertos/include/FreeRTOS.h</itemPath>
+            <itemPath>common/freertos/include/list.h</itemPath>
+            <itemPath>common/freertos/include/mpu_wrappers.h</itemPath>
+            <itemPath>common/freertos/include/portable.h</itemPath>
+            <itemPath>common/freertos/include/projdefs.h</itemPath>
+            <itemPath>common/freertos/include/queue.h</itemPath>
+            <itemPath>common/freertos/include/semphr.h</itemPath>
+            <itemPath>common/freertos/include/StackMacros.h</itemPath>
+            <itemPath>common/freertos/include/timers.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="portable" displayName="portable" projectFiles="true">
+            <logicalFolder name="memmang" displayName="memmang" projectFiles="true">
+            </logicalFolder>
+            <logicalFolder name="mplab" displayName="mplab" projectFiles="true">
+              <logicalFolder name="pic32mx" displayName="pic32mx" projectFiles="true">
+                <itemPath>common/freertos/portable/mplab/pic32mx/isr_support.h</itemPath>
+                <itemPath>common/freertos/portable/mplab/pic32mx/portmacro.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <itemPath>common/compiler_port.h</itemPath>
+        <itemPath>common/date_time.h</itemPath>
+        <itemPath>common/debug.h</itemPath>
+        <itemPath>common/endian.h</itemPath>
+        <itemPath>common/error.h</itemPath>
+        <itemPath>common/fs_port.h</itemPath>
+        <itemPath>common/os_port.h</itemPath>
+        <itemPath>common/os_port_freertos.h</itemPath>
+        <itemPath>common/path.h</itemPath>
+        <itemPath>common/resource_manager.h</itemPath>
+        <itemPath>common/str.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_crypto"
+                     displayName="cyclone_crypto"
+                     projectFiles="true">
+        <itemPath>cyclone_crypto/aes.h</itemPath>
+        <itemPath>cyclone_crypto/aria.h</itemPath>
+        <itemPath>cyclone_crypto/asn1.h</itemPath>
+        <itemPath>cyclone_crypto/base64.h</itemPath>
+        <itemPath>cyclone_crypto/camellia.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_cbc.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ccm.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_cfb.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ctr.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ecb.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_gcm.h</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ofb.h</itemPath>
+        <itemPath>cyclone_crypto/crypto.h</itemPath>
+        <itemPath>cyclone_crypto/des.h</itemPath>
+        <itemPath>cyclone_crypto/des3.h</itemPath>
+        <itemPath>cyclone_crypto/dh.h</itemPath>
+        <itemPath>cyclone_crypto/dsa.h</itemPath>
+        <itemPath>cyclone_crypto/ec.h</itemPath>
+        <itemPath>cyclone_crypto/ecdh.h</itemPath>
+        <itemPath>cyclone_crypto/ecdsa.h</itemPath>
+        <itemPath>cyclone_crypto/ec_curves.h</itemPath>
+        <itemPath>cyclone_crypto/hmac.h</itemPath>
+        <itemPath>cyclone_crypto/idea.h</itemPath>
+        <itemPath>cyclone_crypto/md2.h</itemPath>
+        <itemPath>cyclone_crypto/md4.h</itemPath>
+        <itemPath>cyclone_crypto/md5.h</itemPath>
+        <itemPath>cyclone_crypto/mpi.h</itemPath>
+        <itemPath>cyclone_crypto/oid.h</itemPath>
+        <itemPath>cyclone_crypto/pem.h</itemPath>
+        <itemPath>cyclone_crypto/pkcs5.h</itemPath>
+        <itemPath>cyclone_crypto/rc4.h</itemPath>
+        <itemPath>cyclone_crypto/rc6.h</itemPath>
+        <itemPath>cyclone_crypto/ripemd128.h</itemPath>
+        <itemPath>cyclone_crypto/ripemd160.h</itemPath>
+        <itemPath>cyclone_crypto/rsa.h</itemPath>
+        <itemPath>cyclone_crypto/seed.h</itemPath>
+        <itemPath>cyclone_crypto/sha1.h</itemPath>
+        <itemPath>cyclone_crypto/sha224.h</itemPath>
+        <itemPath>cyclone_crypto/sha256.h</itemPath>
+        <itemPath>cyclone_crypto/sha384.h</itemPath>
+        <itemPath>cyclone_crypto/sha512.h</itemPath>
+        <itemPath>cyclone_crypto/sha512_224.h</itemPath>
+        <itemPath>cyclone_crypto/sha512_256.h</itemPath>
+        <itemPath>cyclone_crypto/tiger.h</itemPath>
+        <itemPath>cyclone_crypto/whirlpool.h</itemPath>
+        <itemPath>cyclone_crypto/x509.h</itemPath>
+        <itemPath>cyclone_crypto/yarrow.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_ssl" displayName="cyclone_ssl" projectFiles="true">
+        <itemPath>cyclone_ssl/ssl_common.h</itemPath>
+        <itemPath>cyclone_ssl/tls.h</itemPath>
+        <itemPath>cyclone_ssl/tls_cache.h</itemPath>
+        <itemPath>cyclone_ssl/tls_cipher_suites.h</itemPath>
+        <itemPath>cyclone_ssl/tls_client.h</itemPath>
+        <itemPath>cyclone_ssl/tls_common.h</itemPath>
+        <itemPath>cyclone_ssl/tls_io.h</itemPath>
+        <itemPath>cyclone_ssl/tls_misc.h</itemPath>
+        <itemPath>cyclone_ssl/tls_record.h</itemPath>
+        <itemPath>cyclone_ssl/tls_server.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_tcp" displayName="cyclone_tcp" projectFiles="true">
+        <logicalFolder name="core" displayName="core" projectFiles="true">
+          <itemPath>cyclone_tcp/core/bsd_socket.h</itemPath>
+          <itemPath>cyclone_tcp/core/ethernet.h</itemPath>
+          <itemPath>cyclone_tcp/core/ip.h</itemPath>
+          <itemPath>cyclone_tcp/core/net.h</itemPath>
+          <itemPath>cyclone_tcp/core/net_mem.h</itemPath>
+          <itemPath>cyclone_tcp/core/nic.h</itemPath>
+          <itemPath>cyclone_tcp/core/ping.h</itemPath>
+          <itemPath>cyclone_tcp/core/raw_socket.h</itemPath>
+          <itemPath>cyclone_tcp/core/socket.h</itemPath>
+          <itemPath>cyclone_tcp/core/tcp.h</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_fsm.h</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_misc.h</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_timer.h</itemPath>
+          <itemPath>cyclone_tcp/core/udp.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dhcp" displayName="dhcp" projectFiles="true">
+          <itemPath>cyclone_tcp/dhcp/dhcp_client.h</itemPath>
+          <itemPath>cyclone_tcp/dhcp/dhcp_common.h</itemPath>
+          <itemPath>cyclone_tcp/dhcp/dhcp_debug.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dns" displayName="dns" projectFiles="true">
+          <itemPath>cyclone_tcp/dns/dns_cache.h</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_client.h</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_common.h</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_debug.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dns_sd" displayName="dns_sd" projectFiles="true">
+          <itemPath>cyclone_tcp/dns_sd/dns_sd.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+          <itemPath>cyclone_tcp/drivers/lan8720.h</itemPath>
+          <itemPath>cyclone_tcp/drivers/pic32mx_eth.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ftp" displayName="ftp" projectFiles="true">
+          <itemPath>cyclone_tcp/ftp/ftp_client.h</itemPath>
+          <itemPath>cyclone_tcp/ftp/ftp_server.h</itemPath>
+          <itemPath>cyclone_tcp/ftp/ftp_server_commands.h</itemPath>
+          <itemPath>cyclone_tcp/ftp/ftp_server_events.h</itemPath>
+          <itemPath>cyclone_tcp/ftp/ftp_server_misc.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="http" displayName="http" projectFiles="true">
+          <itemPath>cyclone_tcp/http/http_server.h</itemPath>
+          <itemPath>cyclone_tcp/http/http_server_auth.h</itemPath>
+          <itemPath>cyclone_tcp/http/http_server_misc.h</itemPath>
+          <itemPath>cyclone_tcp/http/mime.h</itemPath>
+          <itemPath>cyclone_tcp/http/ssi.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ipv4" displayName="ipv4" projectFiles="true">
+          <itemPath>cyclone_tcp/ipv4/arp.h</itemPath>
+          <itemPath>cyclone_tcp/ipv4/auto_ip.h</itemPath>
+          <itemPath>cyclone_tcp/ipv4/icmp.h</itemPath>
+          <itemPath>cyclone_tcp/ipv4/igmp.h</itemPath>
+          <itemPath>cyclone_tcp/ipv4/ipv4.h</itemPath>
+          <itemPath>cyclone_tcp/ipv4/ipv4_frag.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="mdns" displayName="mdns" projectFiles="true">
+          <itemPath>cyclone_tcp/mdns/mdns_client.h</itemPath>
+          <itemPath>cyclone_tcp/mdns/mdns_common.h</itemPath>
+          <itemPath>cyclone_tcp/mdns/mdns_responder.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="netbios" displayName="netbios" projectFiles="true">
+          <itemPath>cyclone_tcp/netbios/nbns_client.h</itemPath>
+          <itemPath>cyclone_tcp/netbios/nbns_common.h</itemPath>
+          <itemPath>cyclone_tcp/netbios/nbns_responder.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="smtp" displayName="smtp" projectFiles="true">
+          <itemPath>cyclone_tcp/smtp/smtp_client.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="sntp" displayName="sntp" projectFiles="true">
+          <itemPath>cyclone_tcp/sntp/sntp_client.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="std_services"
+                       displayName="std_services"
+                       projectFiles="true">
+          <itemPath>cyclone_tcp/std_services/chargen.h</itemPath>
+          <itemPath>cyclone_tcp/std_services/daytime.h</itemPath>
+          <itemPath>cyclone_tcp/std_services/discard.h</itemPath>
+          <itemPath>cyclone_tcp/std_services/echo.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="Main" displayName="Main" projectFiles="true">
+        <itemPath>Main/crypto_config.h</itemPath>
+        <itemPath>Main/freertosconfig.h</itemPath>
+        <itemPath>Main/os_port_config.h</itemPath>
+        <itemPath>Main/spi.h</itemPath>
+        <itemPath>Main/tls_config.h</itemPath>
+        <itemPath>Main/VM204.h</itemPath>
+        <itemPath>Main/shared.h</itemPath>
+        <itemPath>Main/discovery.h</itemPath>
+        <itemPath>Main/inputs.h</itemPath>
+        <itemPath>Main/relays.h</itemPath>
+        <itemPath>Main/AlarmSetting.h</itemPath>
+        <itemPath>Main/snprintf.h</itemPath>
+        <itemPath>Main/SPIFlash.h</itemPath>
+        <itemPath>Main/HardwareProfile.h</itemPath>
+        <itemPath>Main/Compiler.h</itemPath>
+        <itemPath>Main/settings.h</itemPath>
+        <itemPath>Main/IoDataTypes.h</itemPath>
+        <itemPath>Main/net_config.h</itemPath>
+        <itemPath>Main/main.h</itemPath>
+        <itemPath>Main/ext_int_driver.h</itemPath>
+        <itemPath>Main/mail.h</itemPath>
+        <itemPath>Main/api.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+      <itemPath>Main/app_32MX695F512H.ld</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="common" displayName="common" projectFiles="true">
+        <logicalFolder name="freertos" displayName="freertos" projectFiles="true">
+          <logicalFolder name="include" displayName="include" projectFiles="true">
+          </logicalFolder>
+          <logicalFolder name="portable" displayName="portable" projectFiles="true">
+            <logicalFolder name="memmang" displayName="memmang" projectFiles="true">
+              <itemPath>common/freertos/portable/memmang/heap_3.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="mplab" displayName="mplab" projectFiles="true">
+              <logicalFolder name="pic32mx" displayName="pic32mx" projectFiles="true">
+                <itemPath>common/freertos/portable/mplab/pic32mx/port.c</itemPath>
+                <itemPath>common/freertos/portable/mplab/pic32mx/port_asm.S</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <itemPath>common/date_time.c</itemPath>
+        <itemPath>common/endian.c</itemPath>
+        <itemPath>common/os_port_freertos.c</itemPath>
+        <itemPath>common/path.c</itemPath>
+        <itemPath>common/resource_manager.c</itemPath>
+        <itemPath>common/str.c</itemPath>
+        <itemPath>common/freertos/croutine.c</itemPath>
+        <itemPath>common/freertos/event_groups.c</itemPath>
+        <itemPath>common/freertos/list.c</itemPath>
+        <itemPath>common/freertos/queue.c</itemPath>
+        <itemPath>common/freertos/tasks.c</itemPath>
+        <itemPath>common/freertos/timers.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_crypto"
+                     displayName="cyclone_crypto"
+                     projectFiles="true">
+        <itemPath>cyclone_crypto/aes.c</itemPath>
+        <itemPath>cyclone_crypto/aria.c</itemPath>
+        <itemPath>cyclone_crypto/asn1.c</itemPath>
+        <itemPath>cyclone_crypto/base64.c</itemPath>
+        <itemPath>cyclone_crypto/camellia.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_cbc.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ccm.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_cfb.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ctr.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ecb.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_gcm.c</itemPath>
+        <itemPath>cyclone_crypto/cipher_mode_ofb.c</itemPath>
+        <itemPath>cyclone_crypto/des.c</itemPath>
+        <itemPath>cyclone_crypto/des3.c</itemPath>
+        <itemPath>cyclone_crypto/dh.c</itemPath>
+        <itemPath>cyclone_crypto/dsa.c</itemPath>
+        <itemPath>cyclone_crypto/ec.c</itemPath>
+        <itemPath>cyclone_crypto/ecdh.c</itemPath>
+        <itemPath>cyclone_crypto/ecdsa.c</itemPath>
+        <itemPath>cyclone_crypto/ec_curves.c</itemPath>
+        <itemPath>cyclone_crypto/hmac.c</itemPath>
+        <itemPath>cyclone_crypto/idea.c</itemPath>
+        <itemPath>cyclone_crypto/md2.c</itemPath>
+        <itemPath>cyclone_crypto/md4.c</itemPath>
+        <itemPath>cyclone_crypto/md5.c</itemPath>
+        <itemPath>cyclone_crypto/mpi.c</itemPath>
+        <itemPath>cyclone_crypto/oid.c</itemPath>
+        <itemPath>cyclone_crypto/pem.c</itemPath>
+        <itemPath>cyclone_crypto/pkcs5.c</itemPath>
+        <itemPath>cyclone_crypto/rc4.c</itemPath>
+        <itemPath>cyclone_crypto/rc6.c</itemPath>
+        <itemPath>cyclone_crypto/ripemd128.c</itemPath>
+        <itemPath>cyclone_crypto/ripemd160.c</itemPath>
+        <itemPath>cyclone_crypto/rsa.c</itemPath>
+        <itemPath>cyclone_crypto/seed.c</itemPath>
+        <itemPath>cyclone_crypto/sha1.c</itemPath>
+        <itemPath>cyclone_crypto/sha224.c</itemPath>
+        <itemPath>cyclone_crypto/sha256.c</itemPath>
+        <itemPath>cyclone_crypto/sha384.c</itemPath>
+        <itemPath>cyclone_crypto/sha512.c</itemPath>
+        <itemPath>cyclone_crypto/sha512_224.c</itemPath>
+        <itemPath>cyclone_crypto/sha512_256.c</itemPath>
+        <itemPath>cyclone_crypto/tiger.c</itemPath>
+        <itemPath>cyclone_crypto/whirlpool.c</itemPath>
+        <itemPath>cyclone_crypto/x509.c</itemPath>
+        <itemPath>cyclone_crypto/yarrow.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_ssl" displayName="cyclone_ssl" projectFiles="true">
+        <itemPath>cyclone_ssl/ssl_common.c</itemPath>
+        <itemPath>cyclone_ssl/tls.c</itemPath>
+        <itemPath>cyclone_ssl/tls_cache.c</itemPath>
+        <itemPath>cyclone_ssl/tls_cipher_suites.c</itemPath>
+        <itemPath>cyclone_ssl/tls_client.c</itemPath>
+        <itemPath>cyclone_ssl/tls_common.c</itemPath>
+        <itemPath>cyclone_ssl/tls_io.c</itemPath>
+        <itemPath>cyclone_ssl/tls_misc.c</itemPath>
+        <itemPath>cyclone_ssl/tls_record.c</itemPath>
+        <itemPath>cyclone_ssl/tls_server.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="cyclone_tcp" displayName="cyclone_tcp" projectFiles="true">
+        <logicalFolder name="core" displayName="core" projectFiles="true">
+          <itemPath>cyclone_tcp/core/bsd_socket.c</itemPath>
+          <itemPath>cyclone_tcp/core/ethernet.c</itemPath>
+          <itemPath>cyclone_tcp/core/ip.c</itemPath>
+          <itemPath>cyclone_tcp/core/net.c</itemPath>
+          <itemPath>cyclone_tcp/core/net_mem.c</itemPath>
+          <itemPath>cyclone_tcp/core/nic.c</itemPath>
+          <itemPath>cyclone_tcp/core/ping.c</itemPath>
+          <itemPath>cyclone_tcp/core/raw_socket.c</itemPath>
+          <itemPath>cyclone_tcp/core/socket.c</itemPath>
+          <itemPath>cyclone_tcp/core/tcp.c</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_fsm.c</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_misc.c</itemPath>
+          <itemPath>cyclone_tcp/core/tcp_timer.c</itemPath>
+          <itemPath>cyclone_tcp/core/udp.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dhcp" displayName="dhcp" projectFiles="true">
+          <itemPath>cyclone_tcp/dhcp/dhcp_client.c</itemPath>
+          <itemPath>cyclone_tcp/dhcp/dhcp_common.c</itemPath>
+          <itemPath>cyclone_tcp/dhcp/dhcp_debug.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dns" displayName="dns" projectFiles="true">
+          <itemPath>cyclone_tcp/dns/dns_cache.c</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_client.c</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_common.c</itemPath>
+          <itemPath>cyclone_tcp/dns/dns_debug.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="dns_sd" displayName="dns_sd" projectFiles="true">
+          <itemPath>cyclone_tcp/dns_sd/dns_sd.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+          <itemPath>cyclone_tcp/drivers/lan8720.c</itemPath>
+          <itemPath>cyclone_tcp/drivers/pic32mx_eth.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="http" displayName="http" projectFiles="true">
+          <itemPath>cyclone_tcp/http/http_server.c</itemPath>
+          <itemPath>cyclone_tcp/http/http_server_auth.c</itemPath>
+          <itemPath>cyclone_tcp/http/http_server_misc.c</itemPath>
+          <itemPath>cyclone_tcp/http/mime.c</itemPath>
+          <itemPath>cyclone_tcp/http/ssi.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="ipv4" displayName="ipv4" projectFiles="true">
+          <itemPath>cyclone_tcp/ipv4/arp.c</itemPath>
+          <itemPath>cyclone_tcp/ipv4/auto_ip.c</itemPath>
+          <itemPath>cyclone_tcp/ipv4/icmp.c</itemPath>
+          <itemPath>cyclone_tcp/ipv4/igmp.c</itemPath>
+          <itemPath>cyclone_tcp/ipv4/ipv4.c</itemPath>
+          <itemPath>cyclone_tcp/ipv4/ipv4_frag.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="mdns" displayName="mdns" projectFiles="true">
+          <itemPath>cyclone_tcp/mdns/mdns_client.c</itemPath>
+          <itemPath>cyclone_tcp/mdns/mdns_common.c</itemPath>
+          <itemPath>cyclone_tcp/mdns/mdns_responder.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="netbios" displayName="netbios" projectFiles="true">
+          <itemPath>cyclone_tcp/netbios/nbns_client.c</itemPath>
+          <itemPath>cyclone_tcp/netbios/nbns_common.c</itemPath>
+          <itemPath>cyclone_tcp/netbios/nbns_responder.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="smtp" displayName="smtp" projectFiles="true">
+          <itemPath>cyclone_tcp/smtp/smtp_client.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="sntp" displayName="sntp" projectFiles="true">
+          <itemPath>cyclone_tcp/sntp/sntp_client.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="std_services"
+                       displayName="std_services"
+                       projectFiles="true">
+          <itemPath>cyclone_tcp/std_services/chargen.c</itemPath>
+          <itemPath>cyclone_tcp/std_services/daytime.c</itemPath>
+          <itemPath>cyclone_tcp/std_services/discard.c</itemPath>
+          <itemPath>cyclone_tcp/std_services/echo.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="Main" displayName="Main" projectFiles="true">
+        <itemPath>Main/main.c</itemPath>
+        <itemPath>Main/res.c</itemPath>
+        <itemPath>Main/sprintf.c</itemPath>
+        <itemPath>Main/strtok_r.c</itemPath>
+        <itemPath>Main/discovery.c</itemPath>
+        <itemPath>Main/analog.c</itemPath>
+        <itemPath>Main/inputs.c</itemPath>
+        <itemPath>Main/relays.c</itemPath>
+        <itemPath>Main/VM204.c</itemPath>
+        <itemPath>Main/SPIFlash.c</itemPath>
+        <itemPath>Main/debug.c</itemPath>
+        <itemPath>Main/ext3_irq_wrapper.S</itemPath>
+        <itemPath>Main/ext_int_driver.c</itemPath>
+        <itemPath>Main/eth_irq_wrapper.S</itemPath>
+        <itemPath>Main/api.c</itemPath>
+        <itemPath>Main/mail.c</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>cyclone_tcp</Elem>
+    <Elem>cyclone_ssl</Elem>
+    <Elem>cyclone_crypto</Elem>
+    <Elem>common</Elem>
+    <Elem>src</Elem>
+    <Elem>../../VM204.X/cyclone_tcp</Elem>
+    <Elem>Main</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="default" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32MX695F512H</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>ICD3PlatformTool</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>1.31</languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStep>${ProjectDir}\utils\ResourceCompiler\bin\rc.exe ${ProjectDir}\resources\ ${ProjectDir}\Main\res.c</makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="cyclone_crypto;cyclone_ssl;cyclone_tcp;common;common\freertos\portable\mplab\pic32mx;common\freertos\include;Main;..\..\..\..\Downloads\CycloneTCP_SSL_Crypto_Open_1_6_0\demo\common\microchip\boards\pic32_eth_starter_kit;..\..\VM204.X\cyclone_tcp"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value="USE_PIC32_ETH_STARTER_KIT;__XC"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AS>
+        <property key="assembler-symbols" value=""/>
+        <property key="enable-symbols" value="true"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="expand-macros" value="false"/>
+        <property key="extra-include-directories-for-assembler"
+                  value="FreeRTOS\portable\mplabx\pic32mx;Main"/>
+        <property key="extra-include-directories-for-preprocessor" value=""/>
+        <property key="false-conditionals" value="false"/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="oXC32asm-list-to-file" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="warning-level" value="--no-warn"/>
+      </C32-AS>
+      <C32-LD>
+        <property key="additional-options-use-response-files" value="false"/>
+        <property key="enable-check-sections" value="true"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories"
+                  value="Main;src;FreeRTOS\include;common\freertos\include;cyclone_tcp;..\..\VM204.X\cyclone_tcp"/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value="90000"/>
+        <property key="input-libraries" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-startup-files" value="false"/>
+        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="optimization-level" value="-O3"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="remove-unused-sections" value="true"/>
+        <property key="report-memory-usage" value="true"/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </C32-LD>
+      <C32CPP>
+        <property key="additional-warnings" value="false"/>
+        <property key="check-new" value="false"/>
+        <property key="eh-specs" value="true"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="true"/>
+        <property key="exceptions" value="true"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories" value=""/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="false"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value="-O3"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="rtti" value="true"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32CPP>
+      <C32Global>
+        <property key="legacy-libc" value="false"/>
+        <property key="save-temps" value="false"/>
+        <property key="wpo-lto" value="false"/>
+      </C32Global>
+      <ICD3PlatformTool>
+        <property key="ADC 1" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="CHANGE NOTICE" value="true"/>
+        <property key="COMPARATOR" value="true"/>
+        <property key="DMA" value="true"/>
+        <property key="ETHERNET CONTROLLER" value="true"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="I2C3" value="true"/>
+        <property key="I2C4" value="true"/>
+        <property key="I2C5" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="INPUT CAPTURE 2" value="true"/>
+        <property key="INPUT CAPTURE 3" value="true"/>
+        <property key="INPUT CAPTURE 4" value="true"/>
+        <property key="INPUT CAPTURE 5" value="true"/>
+        <property key="INTERRUPT CONTROL" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="OUTPUT COMPARE 2" value="true"/>
+        <property key="OUTPUT COMPARE 3" value="true"/>
+        <property key="OUTPUT COMPARE 4" value="true"/>
+        <property key="OUTPUT COMPARE 5" value="true"/>
+        <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
+        <property key="REAL TIME CLOCK" value="true"/>
+        <property key="SPI 2" value="true"/>
+        <property key="SPI 3" value="true"/>
+        <property key="SPI 4" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="TIMER4" value="true"/>
+        <property key="TIMER5" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="UART1" value="true"/>
+        <property key="UART2" value="true"/>
+        <property key="UART3" value="true"/>
+        <property key="UART4" value="true"/>
+        <property key="UART5" value="true"/>
+        <property key="UART6" value="true"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="false"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.end" value="0x1d07ffff"/>
+        <property key="memories.programmemory.start" value="0x1d000000"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveprogramrange.end" value="0x1d07ffff"/>
+        <property key="programoptions.preserveprogramrange.start" value="0x1d000000"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VPPFirst"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="3.25"/>
+      </ICD3PlatformTool>
+    </conf>
+  </confs>
+</configurationDescriptor>

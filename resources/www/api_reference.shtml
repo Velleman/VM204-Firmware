@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The VM204 main page">
+    <title>VM204 Control Page</title>
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <link rel="stylesheet" href="css/grids-responsive-min.css">
+    <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> </head>
+	<style>	table {
+		table-layout:fixed;width:190px;
+	}</style>
+<body>
+    <div id="layout">
+        <a href="#menu" id="menuLink" class="menu-link"> <span></span> </a>
+        <div id="menu">
+            <div class="pure-menu pure-menu-open"> 
+                <ul class="pure-menu-list">
+					<li class="pure-menu-item"><a class="pure-menu-link" href="index.shtml">Control</a> </li>
+					<li class="pure-menu-item"><a class="pure-menu-link" href="settings.shtml">Settings</a> </li>
+					<li class="pure-menu-item"><a class="pure-menu-link" href="#about">About</a> </li>
+                </ul>
+            </div>
+        </div>
+		<div class="header" id="api">
+                <h1>API Reference</h1>
+				<h2>Get or Generate a new API key</h2> 
+		</div>
+		 <div class="content">
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Get the API key</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="keyRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="keyRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/auth?user=<!--#exec cgi="LOGIN" -->&password=<!--#exec cgi="PASSWORD" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="keyResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="keyResponse" maxlength="32" value="{&quot;ApiKey&quot;:&quot;<!--#exec cgi="API_KEY" -->&quot;}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Enable a Relay</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="enableRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="enableRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/relay/on?relay=1,2,3,4&key=<!--#exec cgi="API_KEY" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="enableResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="enableResponse" maxlength="32" value="{&quot;relays&quot;: [true,true,true,true],&quot;inputs&quot;: [false,false,false,false],&quot;analog&quot;: 0}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Disable a Relay</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="disableRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="disableRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/relay/off?relay=1,2,3,4&key=<!--#exec cgi="API_KEY" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="disableResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="disableResponse" maxlength="32" value="{&quot;relays&quot;: [false,false,false,false],&quot;inputs&quot;: [false,false,false,false],&quot;analog&quot;: 0}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Toggle a Relay</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="toggleRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="toggleRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/relay/toggle?relay=1,2,3,4&key=<!--#exec cgi="API_KEY" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="toggleResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="toggleResponse" maxlength="32" value="{&quot;relays&quot;: [true,true,true,true],&quot;inputs&quot;: [false,false,false,false],&quot;analog&quot;: 0}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Get the IO status</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="statusRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="statusRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/status?key=<!--#exec cgi="API_KEY" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="statusResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="statusResponse" maxlength="32" value="{&quot;relays&quot;: [true,true,true,true],&quot;inputs&quot;: [false,false,false,false],&quot;analog&quot;: 0}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+			<form class="pure-form pure-form-stacked">
+			<fieldset>
+				 <legend>Get the IO names</legend>
+                <div class="pure-control-group">
+					<fieldset>
+					<label for="namesRequest">Request:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="namesRequest" maxlength="32" value="http://<!--#exec cgi="LOCAL_IP" -->:<!--#exec cgi="WEB_PORT" -->/api/settings/names?key=<!--#exec cgi="API_KEY" -->" readonly>
+					</fieldset>
+					<fieldset>
+					<label for="namesResponse">Response:</label>
+					<input class="pure-input-1" type="text" name="api_key" id="namesResponse" maxlength="32" value="{&quot;relays&quot;: [RELAY1,RELAY2,RELAY3,RELAY4],&quot;inputs&quot;: [INPUT1,INPUT2,INPUT3,INPUT4],&quot;analog&quot;: ANALOG}" readonly>
+					</fieldset>
+				</div>			
+			</fieldset>
+			</form>
+        </div>
+        <div class="header" id="about">
+            <h1>About</h1>
+            <h2>Device information</h2> </div>
+        <div class="content">
+            <dl><dt>Board</dt>
+                <dd>
+                    <!--#exec cgi="BOARD_NAME" -->
+                </dd><dt>MAC address</dt>
+                <dd>
+                    <!--#exec cgi="MAC_ADDR" -->
+                </dd><dt>System time</dt>
+                <dd>
+                    <!--#exec cgi="SYSTEM_TIME" -->
+                </dd><dt>Firmware Version</dt>
+                <dd>
+                    <!--#exec cgi="FIRMWARE_VERSION" -->
+                </dd><dt>Analog Max Value</dt>
+                <dd>
+                    <!--#exec cgi="AN_MAX" -->
+                </dd> <dt>Analog Min Value</dt>
+                <dd>
+                    <!--#exec cgi="AN_MIN" -->
+                </dd>
+            </dl>
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/vm204.js"></script>
+    <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
+</body>
