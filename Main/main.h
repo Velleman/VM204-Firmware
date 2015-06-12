@@ -21,6 +21,7 @@ void notificationTask(void *parameters);
 void ioInit(void);
 char* createJSONData();
 const char* bool2str(int value);
+
 #ifdef	__cplusplus
 }
 #endif

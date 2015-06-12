@@ -210,6 +210,7 @@
         <itemPath>Main/ext_int_driver.h</itemPath>
         <itemPath>Main/mail.h</itemPath>
         <itemPath>Main/api.h</itemPath>
+        <itemPath>pulse.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
@@ -403,6 +404,7 @@
         <itemPath>Main/eth_irq_wrapper.S</itemPath>
         <itemPath>Main/api.c</itemPath>
         <itemPath>Main/mail.c</itemPath>
+        <itemPath>pulse.c</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -439,6 +441,21 @@
           </linkerLibItems>
         </linkerTool>
         <loading>
+          <makeArtifact PL="../Bootloader/MPLAB_X_Workspace/ETH_Btl_ETH_StarterKit.X"
+                        CT="1"
+                        CN="default"
+                        AC="true"
+                        BL="true"
+                        WD="../Bootloader/MPLAB_X_Workspace/ETH_Btl_ETH_StarterKit.X"
+                        BC="${MAKE} MAKE_OPTIONS=&quot; -j 16&quot; -f Makefile CONF=default"
+                        DBC="${MAKE} MAKE_OPTIONS=&quot; -j 16&quot; -f Makefile CONF=default TYPE_IMAGE=DEBUG_RUN"
+                        CC="rm -rf &quot;build/default&quot; &quot;dist/default&quot;"
+                        OP="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.hex"
+                        DOP="dist/default/debug/ETH_Btl_ETH_StarterKit.X.debug.elf"
+                        FL="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.hex"
+                        PD="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.elf"
+                        DD="dist/default/debug/ETH_Btl_ETH_StarterKit.X.debug.elf">
+          </makeArtifact>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
@@ -602,6 +619,7 @@
         <property key="UART5" value="true"/>
         <property key="UART6" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

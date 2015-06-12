@@ -22,8 +22,7 @@ extern "C" {
     typedef struct Relay {
         char Name[64];
         bool_t Status;
-        bool_t EnablePulse;
-        int PulseTime;
+        uint_t PulseTime;
     } Relay_t;
 
     typedef struct Analog {

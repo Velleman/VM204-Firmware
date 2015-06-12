@@ -72,6 +72,7 @@ error_t SaveSettings(void);
 error_t EraseSettings(void);
 error_t ReadSettingsFromFlash(void);
 void WriteSettingsToFlash(void);
+void WriteInt(int val);
 void ReadSetting(char* dest,int bytes);
 void GoToBootLoader(void);
 void UpdateNetworkSettings(void);
@@ -79,4 +80,5 @@ bool_t checkFalling(bool_t previous,bool_t current);
 bool_t checkRising(bool_t previous,bool_t current);
 error_t getCurrentTime(void);
 void CreateJsonFromSettings(void);
+void vTimerCallback(void*  pxTimer );
 #endif

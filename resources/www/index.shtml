@@ -1,173 +1,240 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The VM204 main page">
-    <title>VM204 Control Page</title>
-    <link rel="stylesheet" href="css/pure-min.css">
-    <link rel="stylesheet" href="css/layouts/side-menu.css">
-    <link rel="stylesheet" href="css/grids-responsive-min.css">
-	<link rel="stylesheet" href="css/vm204.css">
-    <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> </head>
-	<style>	table {
-		table-layout:fixed;width:190px;
-	}</style>
-<body>
-    <div id="layout">
-        <a href="#menu" id="menuLink" class="menu-link"> <span></span> </a>
-        <div id="menu">
-            <div class="pure-menu pure-menu-open"> 
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item"><a class="pure-menu-link" href="#relayStatus">Relay status</a> </li>
-                    <li class="pure-menu-item"><a class="pure-menu-link" href="settings.shtml">Settings</a> </li>
-                </ul>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="The VM204 main page">
+      <title>VM204 Control Page</title>
+      <link rel="stylesheet" href="css/pure-min.css">
+      <link rel="stylesheet" href="css/layouts/side-menu.css">
+      <link rel="stylesheet" href="css/grids-responsive-min.css">
+      <link rel="stylesheet" href="css/vm204.css">
+      <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> 
+   </head>
+   <style>	table {
+      table-layout:fixed;width:190px;
+      }
+   </style>
+   <body>
+      <div id="layout">
+         <a href="#menu" id="menuLink" class="menu-link"> <span></span> </a>
+         <div id="menu">
+            <div class="pure-menu pure-menu-open">
+               <ul class="pure-menu-list">
+                  <li class="pure-menu-item"><a class="pure-menu-link" href="#relayStatus">Relay status</a> </li>
+                  <li class="pure-menu-item"><a class="pure-menu-link" href="settings.shtml">Settings</a> </li>
+               </ul>
             </div>
-        </div>
-        <div id="main">
+         </div>
+         <div id="main">
             <div class="header" id="relayStatus">
-                <h1>Relay status</h1>
-                <h2>View the status of your IO's</h2> </div>
-            <div class="content">
-                <div class="pure-g" id="realTimeIo">
-                    <div class="pure-u-1-1 pure-u-sm-1-2">
-
-                        <table class="pure-table status-table">
-                            <thead>
-                                <tr>
-                                    <th>Relays</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
-                                    </td>
-                                    <td>
-                                        <button class="pure-button relayButton" id="relay1Status">OFF</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
-                                    </td>
-                                    <td>
-                                        <button class="pure-button relayButton" id="relay2Status">OFF</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
-                                    </td>
-                                    <td>
-                                        <button class="pure-button relayButton" id="relay3Status">OFF</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
-                                    </td>
-                                    <td>
-                                        <button class="pure-button relayButton" id="relay4Status">OFF</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pure-u-1-1 pure-u-sm-1-2">                       
-                        <table class="pure-table status-table">
-                            <thead>
-                                <tr>
-                                    <th>Inputs</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div id="i1Name" style="word-wrap:break-word;">INPUT1</div>
-                                    </td>
-                                    <td>
-                                        <div id="input1Status">OFF</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="i2Name" style="word-wrap:break-word;">INPUT2</div>
-                                    </td>
-                                    <td>
-                                        <div id="input2Status">OFF</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="i3Name" style="word-wrap:break-word;">INPUT3</div>
-                                    </td>
-                                    <td>
-                                        <div id="input3Status">OFF</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div id="i4Name" style="word-wrap:break-word;">INPUT4</div>
-                                    </td>
-                                    <td>
-                                       <div id="input4Status">OFF</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pure-u-1-1">
-			<table class="pure-table status-table">
-			<thead>
-				<tr>
-					<th>Analog</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<div id="analogLabel" style="word-wrap:break-word;">0.0V</div>
-					</td>
-				</tr>
-			</tbody>
-			</table>
-		</div>
-                </div>
+               <h1>Relay status</h1>
+               <h2>View the status of your IO's</h2>
             </div>
-            
-        <div class="header" id="about">
-            <h1>About</h1>
-            <h2>Device information</h2> </div>
-        <div class="content">
-            <dl><dt>Board</dt>
-                <dd>
-                    <!--#exec cgi="BOARD_NAME" -->
-                </dd><dt>MAC address</dt>
-                <dd>
-                    <!--#exec cgi="MAC_ADDR" -->
-                </dd><dt>System time</dt>
-                <dd>
-                    <!--#exec cgi="SYSTEM_TIME" -->
-                </dd><dt>Firmware Version</dt>
-                <dd>
-                    <!--#exec cgi="FIRMWARE_VERSION" -->
-                </dd><dt>Analog Max Value</dt>
-                <dd>
-                    <!--#exec cgi="AN_MAX" -->
-                </dd> <dt>Analog Min Value</dt>
-                <dd>
-                    <!--#exec cgi="AN_MIN" -->
-                </dd>
-            </dl>
-        </div>
-    </div>
-    </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/vm204.js"></script>
-    <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
-</body>
+            <div class="content">
+               <div class="pure-g" id="realTimeIo">
+                  <div class="pure-u-1-1 pure-u-sm-1-2">
+                     <table class="pure-table status-table">
+					 	<colgroup>
+							<col />
+							<col width="120" />
+						</colgroup>					 
+                        <thead>
+                           <tr>
+                              <th>Relays</th>
+                              <th>Toggle</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
+                              </td>
+                              <td>
+                                 <button class="pure-button relayButton" id="relay1Status">OFF</button>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
+                              </td>
+                              <td>
+                                 <button class="pure-button relayButton" id="relay2Status">OFF</button>
+								 
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
+                              </td>
+                              <td>
+                                 <button class="pure-button relayButton" id="relay3Status">OFF</button>
+								 
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
+                              </td>
+                              <td>
+                                 <button class="pure-button relayButton" id="relay4Status">OFF</button>
+								 
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="pure-u-1-1 pure-u-sm-1-2">
+                     <table class="pure-table status-table">
+					 	<colgroup>
+							<col />
+							<col width="120" />
+						</colgroup>
+                        <thead>
+
+                           <tr>
+                              <th>Inputs</th>
+                              <th>Status</th>
+                           </tr>					
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <div id="i1Name" style="word-wrap:break-word;">INPUT1</div>
+                              </td>
+                              <td>
+                                 <div id="input1Status">OFF</div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="i2Name" style="word-wrap:break-word;">INPUT2</div>
+                              </td>
+                              <td>
+                                 <div id="input2Status">OFF</div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="i3Name" style="word-wrap:break-word;">INPUT3</div>
+                              </td>
+                              <td>
+                                 <div id="input3Status">OFF</div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="i4Name" style="word-wrap:break-word;">INPUT4</div>
+                              </td>
+                              <td>
+                                 <div id="input4Status">OFF</div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+				    <div class="pure-u-1-1 pure-u-sm-1-2">
+				  <table class="pure-table status-table">
+					 	<colgroup>
+							<col />
+							<col width="120" />
+						</colgroup>				  
+                        <thead>
+                           <tr>
+                              <th>Relays</th>
+                              <th>Pulse</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
+                              </td>                
+							  <td>
+								 <button class="pure-button relayButton" id="relay1Status">PULSE</button>
+							 </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
+                              </td>
+							  <td>
+								<button class="pure-button relayButton" id="relay2Status">PULSE</button>
+							  </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
+                              </td>
+							  <td>
+							    <button class="pure-button relayButton" id="relay3Status">PULSE</button>
+							  </td>
+                           </tr>
+                           <tr>
+                              <td>
+                                 <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
+                              </td>
+							  <td>
+							    <button class="pure-button relayButton" id="relay4Status">PULSE</button>
+							  </td>
+                           </tr>
+                        </tbody>
+                     </table>
+					 </div>
+                  <div class="pure-u-1-1 pure-u-sm-1-2">
+                     <table class="pure-table status-table">
+                        <thead>
+                           <tr>
+                              <th>Analog</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>
+                                 <div id="analogLabel" style="word-wrap:break-word;">0.0V</div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div class="header" id="about">
+               <h1>About</h1>
+               <h2>Device information</h2>
+            </div>
+            <div class="content">
+               <dl>
+                  <dt>Board</dt>
+                  <dd>
+                     <!--#exec cgi="BOARD_NAME" -->
+                  </dd>
+                  <dt>MAC address</dt>
+                  <dd>
+                     <!--#exec cgi="MAC_ADDR" -->
+                  </dd>
+                  <dt>System time</dt>
+                  <dd>
+                     <!--#exec cgi="SYSTEM_TIME" -->
+                  </dd>
+                  <dt>Firmware Version</dt>
+                  <dd>
+                     <!--#exec cgi="FIRMWARE_VERSION" -->
+                  </dd>
+                  <dt>Analog Max Value</dt>
+                  <dd>
+                     <!--#exec cgi="AN_MAX" -->
+                  </dd>
+                  <dt>Analog Min Value</dt>
+                  <dd>
+                     <!--#exec cgi="AN_MIN" -->
+                  </dd>
+               </dl>
+            </div>
+         </div>
+      </div>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/ui.js"></script>
+      <script src="js/vm204.js"></script>
+      <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
+   </body>

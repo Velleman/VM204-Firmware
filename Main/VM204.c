@@ -54,15 +54,14 @@ error_t ReadSettingsFromFlash() {
     ReadSetting(appSettings.NetworkSetting.PrimaryDNS,16);
     ReadSetting(appSettings.NetworkSetting.SecondaryDNS,16);
     ReadSetting(appSettings.NetworkSetting.MacAddress,18);
-    char webport[4];
-    ReadSetting(webport,4);
-    appSettings.NetworkSetting.PortWebServer = webport[3] | ((int) webport[2] << 8) | ((int) webport[1] << 16) | ((int) webport[0] << 24);
+    
+    appSettings.NetworkSetting.PortWebServer = ReadInt();
     //Relays
     int i=0;
     for(i=0;i<4;i++)
     {
         ReadSetting(appSettings.IoSettings.relays[i].Name,64);
-        
+        appSettings.IoSettings.relays[i].PulseTime= ReadInt();
     }
     //Inputs
     for(i=0;i<4;i++)
@@ -79,9 +78,8 @@ error_t ReadSettingsFromFlash() {
     ReadSetting(appSettings.AuthSettings.Password,32);
     //Smtp
     ReadSetting(appSettings.EmailSettings.serverName,64);
-    char smtpport[4];
-    ReadSetting(smtpport,4);
-    appSettings.EmailSettings.serverPort = smtpport[3] | ((int) smtpport[2] << 8) | ((int) smtpport[1] << 16) | ((int) smtpport[0] << 24);
+    
+    appSettings.IoSettings.relays[i].PulseTime = ReadInt();
     ReadSetting(appSettings.EmailSettings.userName,64);
     ReadSetting(appSettings.EmailSettings.passWord,64);
     ReadSetting(&appSettings.EmailSettings.useTls,1);
@@ -93,6 +91,25 @@ error_t ReadSettingsFromFlash() {
     }
     //CreateJsonFromSettings();
     return NO_ERROR;
+}
+
+int ReadInt(void)
+{
+    int integer;
+    char data[4];
+    ReadSetting(data,4);
+    integer = data[3] | ((int) data[2] << 8) | ((int) data[1] << 16) | ((int) data[0] << 24);
+    return integer;
+}
+
+void WriteInt(int val)
+{
+    char data[4];
+    data[0] = (val >> 24) & 0xFF;
+    data[1] = (val >> 16) & 0xFF;
+    data[2] = (val >> 8) & 0xFF;
+    data[3] = val & 0xFF;
+    SPIFlashWriteArray(data,4);
 }
 
 void ReadSetting(char* dest,int bytes)
@@ -146,20 +163,15 @@ void WriteSettingsToFlash() {
     SPIFlashWriteArray(appSettings.NetworkSetting.SubnetMask,16);
     SPIFlashWriteArray(appSettings.NetworkSetting.PrimaryDNS,16);
     SPIFlashWriteArray(appSettings.NetworkSetting.SecondaryDNS,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.MacAddress,18);
-
-    char webserverport[4];
-    webserverport[0] = (appSettings.NetworkSetting.PortWebServer >> 24) & 0xFF;
-    webserverport[1] = (appSettings.NetworkSetting.PortWebServer >> 16) & 0xFF;
-    webserverport[2] = (appSettings.NetworkSetting.PortWebServer >> 8) & 0xFF;
-    webserverport[3] = appSettings.NetworkSetting.PortWebServer & 0xFF;
-    SPIFlashWriteArray(webserverport,4);
+    SPIFlashWriteArray(appSettings.NetworkSetting.MacAddress,18);    
+    WriteInt(appSettings.NetworkSetting.PortWebServer);
 
     //Relays
     int i=0;
     for(i=0;i<4;i++)
     {
         SPIFlashWriteArray(appSettings.IoSettings.relays[i].Name,64);
+        WriteInt(appSettings.IoSettings.relays[i].PulseTime);
     }
     //Inputs
     for(i=0;i<4;i++)
@@ -177,12 +189,7 @@ void WriteSettingsToFlash() {
     //Smtp
     SPIFlashWriteArray(appSettings.EmailSettings.serverName,64);
 
-    char smtpport[4];
-    smtpport[0] = (appSettings.EmailSettings.serverPort >> 24) & 0xFF;
-    smtpport[1] = (appSettings.EmailSettings.serverPort >> 16) & 0xFF;
-    smtpport[2] = (appSettings.EmailSettings.serverPort >> 8) & 0xFF;
-    smtpport[3] = appSettings.EmailSettings.serverPort & 0xFF;
-    SPIFlashWriteArray(smtpport,4);
+    WriteInt(appSettings.EmailSettings.serverPort);
     SPIFlashWriteArray(appSettings.EmailSettings.userName,64);
     SPIFlashWriteArray(appSettings.EmailSettings.passWord,64);
     SPIFlashWriteArray(&appSettings.EmailSettings.useTls,1);
@@ -198,7 +205,7 @@ void WriteSettingsToFlash() {
 static const char* alice = "alice@email.com;trudy@email.com";
 static const char* bob = "bob@email.com";
 void LoadDefaultSettings(YarrowContext* yarrowContext) {
-
+    int i;
     //CardName
     strcpy(appSettings.CardName, "VM204");
     strcpy(appSettings.CustomJSLink,"");
@@ -223,6 +230,11 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
     strcpy(appSettings.IoSettings.relays[1].Name, "RELAY2");
     strcpy(appSettings.IoSettings.relays[2].Name, "RELAY3");
     strcpy(appSettings.IoSettings.relays[3].Name, "RELAY4");
+    appSettings.IoSettings.relays[0].PulseTime = 60;
+    appSettings.IoSettings.relays[1].PulseTime = 60;
+    appSettings.IoSettings.relays[2].PulseTime = 60;
+    appSettings.IoSettings.relays[3].PulseTime = 60;
+    
     strcpy(appSettings.IoSettings.analog.Name, "ANALOG");
     appSettings.IoSettings.analog.AlarmValue = 128;
     appSettings.IoSettings.analog.MinValue = 2147483647;
@@ -235,7 +247,7 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
     //Auth
     //For EmailSettings check your local ISP or check your mail provider
     strcpy(appSettings.EmailSettings.userName,"email@example.com"); //ex. test@test.com
-    strcpy(appSettings.EmailSettings.passWord,NULL); //Password
+    strcpy(appSettings.EmailSettings.passWord,"password"); //Password
     appSettings.EmailSettings.serverPort = 587; //
     strcpy(appSettings.EmailSettings.serverName,"smtp.example.com"); //example smtp.live.com or smtp.gmail.com
     appSettings.EmailSettings.useTls = FALSE;
@@ -243,7 +255,7 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
     strcpy(appSettings.Notifications[NOTIFICATION_BOOT].mail.recipients,alice);
     appSettings.Notifications[NOTIFICATION_BOOT].enable = FALSE;
 
-    int i;
+    
     for (i = 0; i < 4; i++) {
         //Rising
         strcpy(appSettings.Notifications[i].mail.recipients, alice);        

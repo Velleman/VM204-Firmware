@@ -4,7 +4,7 @@
  *
  * @section License
  *
- * Copyright (C) 2010-2014 Oryx Embedded. All rights reserved.
+ * Copyright (C) 2010-2014 Velleman nv. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,8 +20,8 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @author Oryx Embedded (www.oryx-embedded.com)
- * @version 1.4.2
+ * @author Brecht Nuyttens (www.velleman.eu)
+ * @version 1.0.0
  **/
 
 //Application configuration
@@ -61,6 +61,11 @@
 
 //Number of simultaneous client connections
 #define APP_HTTP_MAX_CONNECTIONS 3
+#define NUM_TIMERS 5
+
+/* An array to hold handles to the created timers. */
+ TimerHandle_t xTimers[ NUM_TIMERS ];
+
 //Global variables
 HttpServerContext httpServerContext;
 HttpConnection httpConnections[APP_HTTP_MAX_CONNECTIONS]; 
@@ -78,30 +83,30 @@ HttpServerSettings httpServerSettings;
 HttpServerContext httpServerContext;
 
 ////PIC32 onfiguration settings
-//#pragma config FSRSSEL = PRIORITY_7
-//#pragma config FMIIEN = OFF
-//#pragma config FETHIO = OFF
-//#pragma config FUSBIDIO = OFF
-//#pragma config FVBUSONIO = OFF
-//#pragma config FPLLIDIV = DIV_2
-//#pragma config FPLLMUL = MUL_20
-//#pragma config UPLLIDIV = DIV_1
-//#pragma config UPLLEN = OFF
-//#pragma config FPLLODIV = DIV_1
-//#pragma config FNOSC = PRIPLL
-//#pragma config FSOSCEN = OFF
-//#pragma config IESO = ON
-//#pragma config POSCMOD = XT
-//#pragma config OSCIOFNC = OFF
-//#pragma config FPBDIV = DIV_2
-//#pragma config FCKSM = CSDCMD
-//#pragma config WDTPS = PS1048576
-//#pragma config FWDTEN = OFF
-////#pragma config DEBUG = ON
-//#pragma config ICESEL = ICS_PGx1
-//#pragma config PWP = OFF
-//#pragma config BWP = OFF
-//#pragma config CP = OFF
+#pragma config FSRSSEL = PRIORITY_7
+#pragma config FMIIEN = OFF
+#pragma config FETHIO = OFF
+#pragma config FUSBIDIO = OFF
+#pragma config FVBUSONIO = OFF
+#pragma config FPLLIDIV = DIV_2
+#pragma config FPLLMUL = MUL_20
+#pragma config UPLLIDIV = DIV_1
+#pragma config UPLLEN = OFF
+#pragma config FPLLODIV = DIV_1
+#pragma config FNOSC = PRIPLL
+#pragma config FSOSCEN = OFF
+#pragma config IESO = ON
+#pragma config POSCMOD = XT
+#pragma config OSCIOFNC = OFF
+#pragma config FPBDIV = DIV_2
+#pragma config FCKSM = CSDCMD
+#pragma config WDTPS = PS1048576
+#pragma config FWDTEN = OFF
+//#pragma config DEBUG = ON
+#pragma config ICESEL = ICS_PGx1
+#pragma config PWP = OFF
+#pragma config BWP = OFF
+#pragma config CP = OFF
 
 //External 3 interrupt service routine
 void __attribute__((interrupt(ipl1), vector(_EXTERNAL_3_VECTOR))) ext3IrqWrapper(void);
@@ -260,7 +265,7 @@ int_t main(void) {
     }
     else
     {
-        //LoadDefaultSettings(&yarrowContext);
+        LoadDefaultSettings(&appSettings.yarrowContext);
         error = ReadSettingsFromFlash();
         if(error)
         {
@@ -417,12 +422,58 @@ int_t main(void) {
         TRACE_ERROR("Failed to create task!\r\n");
     }
 
+    /* Create then start some timers.  Starting the timers before the RTOS scheduler
+     has been started means the timers will start running immediately that
+     the RTOS scheduler starts. */
+     int x;
+     for( x = 0; x < NUM_TIMERS; x++ )
+     {
+         xTimers[ x ] = xTimerCreate
+		          (  /* Just a text name, not used by the RTOS kernel. */
+                     "Timer",
+                     /* The timer period in ticks. */
+                     ( 100 * x ),
+                     /* The timers will auto-reload themselves when they expire. */
+                     pdFALSE,
+                     /* Assign each timer a unique id equal to its array index. */
+                     ( void * ) x,
+                     /* Each timer calls the same callback when it expires. */
+                     vTimerCallback
+                   );
+
+         if( xTimers[ x ] == NULL )
+         {
+             /* The timer was not created. */
+         }
+         else
+         {
+            
+         }
+     }
+
     //Start the execution of tasks
     osStartKernel();
 
     //This function should never return
     return 0;
 }
+
+/* Define a callback function that will be used by multiple timer instances.
+ The callback function does nothing but count the number of times the
+ associated timer expires, and stop the timer once the timer has expired
+ 10 times. */
+ void vTimerCallback( TimerHandle_t pxTimer )
+ {
+     long lArrayIndex;
+
+     /* Optionally do something if the pxTimer parameter is NULL. */
+     configASSERT( pxTimer );
+
+     /* Which timer expired? */
+     lArrayIndex = ( long ) pvTimerGetTimerID( pxTimer );
+     setRelayValue(lArrayIndex,FALSE);
+
+ }
 
 void ioInit(void) {
 
@@ -473,25 +524,6 @@ void blinkTask(void *parameters){
         
     }
 }
-
-//void vTimerCallback( TimerHandle_t pxTimer )
-//{
-//        setRelayValue(pvTimerGetTimerID(pxTimer),0);
-//}
-//
-//void pulseTask(void *parameters){
-//    while(TRUE)
-//    {
-//        if(appSettings.IoSettings.relays[0].EnablePulse)
-//        {
-//            xTimerCreate("timer",appSettings.IoSettings.relays[0].PulseTime / portTICK_PERIOD_MS)
-//            RY1 = true;
-//            xTimerStart(timer,0) ;
-//        }
-//    }
-//}
-
-
 
 void updateTask(void *parameters) {
      error_t error;
@@ -892,7 +924,6 @@ error_t httpServerCgiCallback(HttpConnection *connection, const char_t *param) {
  * @brief URI not found callback
  **/
 
-//Login Logins[5];
 error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *uri) {
     if(strstr(connection->request.uri,"/api"))
     {
@@ -1031,11 +1062,13 @@ error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *
         }
         else if(!strcasecmp(command,"pulse"))
         {
-            
+            uint_t time = atoi(strtok(NULL,"/"));
+            if(time)//If time is not zero
+                startPulse(relay,time);
         }
         else // off
         {
-            setRelayValue(relay,0);
+            startPulse(relay,appSettings.IoSettings.relays[relay-1].PulseTime);
         }
         return sendIoStatus(connection);
     }else if (!strcasecmp(connection->request.uri, "/status")) {
@@ -1237,10 +1270,6 @@ error_t sendNames(HttpConnection *connection)
         //Return status code
         return error;
 }
-
-
-
-
 
 error_t processAlarmSettings(HttpConnection *connection)
 {

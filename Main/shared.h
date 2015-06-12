@@ -8,11 +8,14 @@
 #ifndef SHARED_H
 #define	SHARED_H
 #include "settings.h"
+#include "FreeRTOS.h"
+#include "timers.h"
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 extern Settings appSettings;
+extern TimerHandle_t xTimers[5];
 #ifdef	__cplusplus
 }
 #endif
