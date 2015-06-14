@@ -134,10 +134,9 @@ void GoToBootLoader()
 {
     SPIFlashInit();
     SPIFlashBeginWrite(4095);
-    char_t boot[8]= {1,1,1,1,1,1,1,1};
+    char_t boot[8]= {0,0,0,0,0,0,0,0};
     SPIFlashWriteArray(boot,8);
-    char_t data[8];
-    SPIFlashReadArray(4095,data,8);
+    reboot();
 }
 
 /**

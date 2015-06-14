@@ -151,7 +151,7 @@
                                  <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
                               </td>                
 							  <td>
-								 <button class="pure-button relayButton" id="relay1Status">PULSE</button>
+								 <button class="pure-button relayButton" id="pulse1Button">PULSE</button>
 							 </td>
                            </tr>
                            <tr>
@@ -159,7 +159,7 @@
                                  <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
                               </td>
 							  <td>
-								<button class="pure-button relayButton" id="relay2Status">PULSE</button>
+								<button class="pure-button relayButton" id="pulse2Button">PULSE</button>
 							  </td>
                            </tr>
                            <tr>
@@ -167,7 +167,7 @@
                                  <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
                               </td>
 							  <td>
-							    <button class="pure-button relayButton" id="relay3Status">PULSE</button>
+							    <button class="pure-button relayButton" id="pulse3Button">PULSE</button>
 							  </td>
                            </tr>
                            <tr>
@@ -175,7 +175,7 @@
                                  <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
                               </td>
 							  <td>
-							    <button class="pure-button relayButton" id="relay4Status">PULSE</button>
+							    <button class="pure-button relayButton" id="pulse4Button">PULSE</button>
 							  </td>
                            </tr>
                         </tbody>

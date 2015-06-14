@@ -146,6 +146,23 @@ function sendRelay(e, t) {
     })
 }
 
+function sendPulse(e, t) {
+    var pulseId = "/" + e;
+    var n = $.ajax({
+        type: "POST",
+        url: "/relay" + pulseId +"/pulse",
+        dataType: "text",
+        data: "pulse",
+        success: function(e, t) {
+            try {
+                updateIO(e)
+            } catch (n) {
+                console.log(n)
+            }
+        }
+    })
+}
+
 function timerClearEvent() {
     $("#statuslabel").text("")
 }
@@ -401,6 +418,18 @@ $(function() {
     });
     $("#relay4Status").click(function() {
         sendRelay(4, this)
+    });
+	$("#pulse1Button").click(function()  {
+		sendPulse(1,this);
+    });
+	$("#pulse2Button").click(function()  {
+		sendPulse(2,this);
+    });
+	$("#pulse3Button").click(function()  {
+		sendPulse(3,this);
+    });
+	$("#pulse4Button").click(function()  {
+		sendPulse(4,this);
     });
     $("#sendAuthSettingsButton").click(function() {
         sendAuthSettings();

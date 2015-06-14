@@ -1062,13 +1062,28 @@ error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *
         }
         else if(!strcasecmp(command,"pulse"))
         {
-            uint_t time = atoi(strtok(NULL,"/"));
-            if(time)//If time is not zero
-                startPulse(relay,time);
+            char* param = strtok(NULL,"/");
+            if(param)//if custom time
+            {
+                uint_t time = atoi(param);
+                if(time)//If time is not zero
+                {
+                    startPulse(relay,time);
+                }
+                else
+                {
+                    startPulse(relay,appSettings.IoSettings.relays[relay-1].PulseTime);
+                }
+            }
+            else
+            {
+                startPulse(relay,appSettings.IoSettings.relays[relay-1].PulseTime);
+            }
+            
         }
-        else // off
+        else if(!strcasecmp(command,"off"))// off
         {
-            startPulse(relay,appSettings.IoSettings.relays[relay-1].PulseTime);
+            setRelayValue(relay,0);
         }
         return sendIoStatus(connection);
     }else if (!strcasecmp(connection->request.uri, "/status")) {
