@@ -7,13 +7,17 @@
 	},
 	"io":	{
 		"relays":	[{
-				"name":	"<!--#exec cgi="NAME_R1" -->"
+				"name":	"<!--#exec cgi="NAME_R1" -->",
+				"time":	"<!--#exec cgi="TIME_R1" -->"
 			}, {
-				"name":	"<!--#exec cgi="NAME_R2" -->"
+				"name":	"<!--#exec cgi="NAME_R2" -->",
+				"time":	"<!--#exec cgi="TIME_R2" -->"
 			}, {
-				"name":	"<!--#exec cgi="NAME_R3" -->"
+				"name":	"<!--#exec cgi="NAME_R3" -->",
+				"time":	"<!--#exec cgi="TIME_R3" -->"
 			}, {
-				"name":	"<!--#exec cgi="NAME_R4" -->"
+				"name":	"<!--#exec cgi="NAME_R4" -->",
+				"time":	"<!--#exec cgi="TIME_R4" -->"
 			}],
 		"inputs":	[{
 				"name":	"<!--#exec cgi="NAME_I1" -->"

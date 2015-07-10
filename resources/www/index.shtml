@@ -1,240 +1,162 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang=en>
    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="The VM204 main page">
       <title>VM204 Control Page</title>
-      <link rel="stylesheet" href="css/pure-min.css">
-      <link rel="stylesheet" href="css/layouts/side-menu.css">
-      <link rel="stylesheet" href="css/grids-responsive-min.css">
-      <link rel="stylesheet" href="css/vm204.css">
-      <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> 
-   </head>
-   <style>	table {
-      table-layout:fixed;width:190px;
-      }
-   </style>
    <body>
-      <div id="layout">
-         <a href="#menu" id="menuLink" class="menu-link"> <span></span> </a>
-         <div id="menu">
+      <div id=splashscreen><img class=splashimage id=splashimage src=vm204.png></div>
+      <meta charset=utf-8>
+      <meta content="width=device-width,initial-scale=1" name=viewport>
+      <meta content="The VM204 main page" name=description>
+      <link href=css/pure-min.css rel=stylesheet>
+      <link href=css/layouts/side-menu.css rel=stylesheet>
+      <link href=css/grids-responsive-min.css rel=stylesheet>
+      <link href=css/vm204.css rel=stylesheet>
+      <link href="" rel=stylesheet>
+      <style>table{table-layout:fixed;width:190px}</style>
+      <div id=layout>
+         <a class=menu-link href=#menu id=menuLink><span></span></a>
+         <div id=menu>
             <div class="pure-menu pure-menu-open">
-               <ul class="pure-menu-list">
-                  <li class="pure-menu-item"><a class="pure-menu-link" href="#relayStatus">Relay status</a> </li>
-                  <li class="pure-menu-item"><a class="pure-menu-link" href="settings.shtml">Settings</a> </li>
+               <ul class=pure-menu-list>
+                  <li class=pure-menu-item><a class=pure-menu-link href=#relayStatus>Relay status</a></li>
+                  <li class=pure-menu-item><a class=pure-menu-link href=settings.shtml>Settings</a></li>
                </ul>
             </div>
          </div>
-         <div id="main">
-            <div class="header" id="relayStatus">
+         <div id=main>
+            <div class=header id=relayStatus>
                <h1>Relay status</h1>
                <h2>View the status of your IO's</h2>
             </div>
-            <div class="content">
-               <div class="pure-g" id="realTimeIo">
+            <div class=content>
+               <div class=pure-g id=realTimeIo>
                   <div class="pure-u-1-1 pure-u-sm-1-2">
                      <table class="pure-table status-table">
-					 	<colgroup>
-							<col />
-							<col width="120" />
-						</colgroup>					 
+                        <colgroup>
+                           <col>
+                           <col width=60%>
                         <thead>
                            <tr>
-                              <th>Relays</th>
-                              <th>Toggle</th>
-                           </tr>
-                        </thead>
+                              <th>Relays
+                              <th>Toggle
                         <tbody>
                            <tr>
                               <td>
-                                 <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
-                              </td>
-                              <td>
-                                 <button class="pure-button relayButton" id="relay1Status">OFF</button>
-                              </td>
-                           </tr>
+                                 <div id=r1Name class=r1Name style=word-wrap:break-word>RELAY1</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=relay1Status>OFF</button>
                            <tr>
                               <td>
-                                 <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
-                              </td>
-                              <td>
-                                 <button class="pure-button relayButton" id="relay2Status">OFF</button>
-								 
-                              </td>
-                           </tr>
+                                 <div id=r2Name class=r2Name style=word-wrap:break-word>RELAY2</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=relay2Status>OFF</button>
                            <tr>
                               <td>
-                                 <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
-                              </td>
-                              <td>
-                                 <button class="pure-button relayButton" id="relay3Status">OFF</button>
-								 
-                              </td>
-                           </tr>
+                                 <div id=r3Name class=r3Name style=word-wrap:break-word>RELAY3</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=relay3Status>OFF</button>
                            <tr>
                               <td>
-                                 <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
-                              </td>
-                              <td>
-                                 <button class="pure-button relayButton" id="relay4Status">OFF</button>
-								 
-                              </td>
-                           </tr>
-                        </tbody>
+                                 <div id=r4Name class=r4Name style=word-wrap:break-word>RELAY4</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=relay4Status>OFF</button>
                      </table>
                   </div>
                   <div class="pure-u-1-1 pure-u-sm-1-2">
                      <table class="pure-table status-table">
-					 	<colgroup>
-							<col />
-							<col width="120" />
-						</colgroup>
+                        <colgroup>
+                           <col>
+                           <col width=60%>
                         <thead>
-
                            <tr>
-                              <th>Inputs</th>
-                              <th>Status</th>
-                           </tr>					
-                        </thead>
+                              <th>Inputs
+                              <th>Status
                         <tbody>
                            <tr>
                               <td>
-                                 <div id="i1Name" style="word-wrap:break-word;">INPUT1</div>
-                              </td>
+                                 <div id=i1Name style=word-wrap:break-word>INPUT1</div>
                               <td>
-                                 <div id="input1Status">OFF</div>
-                              </td>
-                           </tr>
+                                 <div id=input1Status>OFF</div>
                            <tr>
                               <td>
-                                 <div id="i2Name" style="word-wrap:break-word;">INPUT2</div>
-                              </td>
+                                 <div id=i2Name style=word-wrap:break-word>INPUT2</div>
                               <td>
-                                 <div id="input2Status">OFF</div>
-                              </td>
-                           </tr>
+                                 <div id=input2Status>OFF</div>
                            <tr>
                               <td>
-                                 <div id="i3Name" style="word-wrap:break-word;">INPUT3</div>
-                              </td>
+                                 <div id=i3Name style=word-wrap:break-word>INPUT3</div>
                               <td>
-                                 <div id="input3Status">OFF</div>
-                              </td>
-                           </tr>
+                                 <div id=input3Status>OFF</div>
                            <tr>
                               <td>
-                                 <div id="i4Name" style="word-wrap:break-word;">INPUT4</div>
-                              </td>
+                                 <div id=i4Name style=word-wrap:break-word>INPUT4</div>
                               <td>
-                                 <div id="input4Status">OFF</div>
-                              </td>
-                           </tr>
-                        </tbody>
+                                 <div id=input4Status>OFF</div>
                      </table>
                   </div>
-				    <div class="pure-u-1-1 pure-u-sm-1-2">
-				  <table class="pure-table status-table">
-					 	<colgroup>
-							<col />
-							<col width="120" />
-						</colgroup>				  
+                  <div class="pure-u-1-1 pure-u-sm-1-2">
+                     <table class="pure-table status-table">
+                        <colgroup>
+                           <col>
+                           <col width=60%>
                         <thead>
                            <tr>
-                              <th>Relays</th>
-                              <th>Pulse</th>
-                           </tr>
-                        </thead>
+                              <th>Relays
+                              <th>Pulse
                         <tbody>
                            <tr>
                               <td>
-                                 <div id="r1Name" style="word-wrap:break-word;">RELAY1</div>
-                              </td>                
-							  <td>
-								 <button class="pure-button relayButton" id="pulse1Button">PULSE</button>
-							 </td>
-                           </tr>
+                                 <div id=r1Name class=r1Name style=word-wrap:break-word>RELAY1</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=pulse1Status>ACTIVATE</button>
                            <tr>
                               <td>
-                                 <div id="r2Name" style="word-wrap:break-word;">RELAY2</div>
-                              </td>
-							  <td>
-								<button class="pure-button relayButton" id="pulse2Button">PULSE</button>
-							  </td>
-                           </tr>
+                                 <div id=r2Name class=r2Name style=word-wrap:break-word>RELAY2</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=pulse2Status>ACTIVATE</button>
                            <tr>
                               <td>
-                                 <div id="r3Name" style="word-wrap:break-word;">RELAY3</div>
-                              </td>
-							  <td>
-							    <button class="pure-button relayButton" id="pulse3Button">PULSE</button>
-							  </td>
-                           </tr>
+                                 <div id=r3Name class=r3Name style=word-wrap:break-word>RELAY3</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=pulse3Status>ACTIVATE</button>
                            <tr>
                               <td>
-                                 <div id="r4Name" style="word-wrap:break-word;">RELAY4</div>
-                              </td>
-							  <td>
-							    <button class="pure-button relayButton" id="pulse4Button">PULSE</button>
-							  </td>
-                           </tr>
-                        </tbody>
+                                 <div id=r4Name class=r4Name style=word-wrap:break-word>RELAY4</div>
+                              <td><button class="pure-button relayButton pure-button-disabled" id=pulse4Status>ACTIVATE</button>
                      </table>
-					 </div>
+                  </div>
                   <div class="pure-u-1-1 pure-u-sm-1-2">
                      <table class="pure-table status-table">
                         <thead>
                            <tr>
-                              <th>Analog</th>
-                           </tr>
-                        </thead>
+                              <th>Analog
                         <tbody>
                            <tr>
                               <td>
-                                 <div id="analogLabel" style="word-wrap:break-word;">0.0V</div>
-                              </td>
-                           </tr>
-                        </tbody>
+                                 <div id=analogLabel style=word-wrap:break-word>0.0V</div>
                      </table>
                   </div>
                </div>
             </div>
-            <div class="header" id="about">
+            <div class=header id=about>
                <h1>About</h1>
                <h2>Device information</h2>
             </div>
-            <div class="content">
+            <div class=content>
                <dl>
-                  <dt>Board</dt>
+                  <dt>Board
                   <dd>
                      <!--#exec cgi="BOARD_NAME" -->
-                  </dd>
-                  <dt>MAC address</dt>
+                  <dt>MAC address
                   <dd>
                      <!--#exec cgi="MAC_ADDR" -->
-                  </dd>
-                  <dt>System time</dt>
+                  <dt>System time
                   <dd>
                      <!--#exec cgi="SYSTEM_TIME" -->
-                  </dd>
-                  <dt>Firmware Version</dt>
+                  <dt>Firmware Version
                   <dd>
                      <!--#exec cgi="FIRMWARE_VERSION" -->
-                  </dd>
-                  <dt>Analog Max Value</dt>
+                  <dt>Analog Max Value
                   <dd>
                      <!--#exec cgi="AN_MAX" -->
-                  </dd>
-                  <dt>Analog Min Value</dt>
+                  <dt>Analog Min Value
                   <dd>
                      <!--#exec cgi="AN_MIN" -->
-                  </dd>
                </dl>
             </div>
          </div>
       </div>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/ui.js"></script>
-      <script src="js/vm204.js"></script>
-      <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
-   </body>
+      <script src=js/jquery.min.js></script><script src=js/ui.js></script><script src=js/vm204.js></script><script src=""></script>

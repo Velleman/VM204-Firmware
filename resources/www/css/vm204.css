@@ -1,36 +1,83 @@
-	.content
-	{
-		/* fixed width on larger screens */ 
-		max-width: 768px;
-		
-		/* centered */
-		margin-left: auto;
-		margin-right: auto;
-		
-		/* Remove padding */
-		padding: 0 0;
-	}
-	.status-table
-	{
-		/* full width with 1em margin (left, right and top) */
-		table-layout: fixed;
-		margin: auto;
-		margin-top: 1em;
-		width: calc(100% - 2em);
-	}
-	.status-table td
-	{
-		/* status tables nicely split in half */
-		width: 50%;
-	}
-	 .button-custom-disabled {
-                                color: black;
-                                background: rgba(128, 167, 92, 0);
-                                cursor: not-allowed;
-                            }
-                            
-                            .button-custom-disabled:hover {
-                                color: black;
-                                background: rgba(128, 167, 92, 0);
-                                cursor: not-allowed;
-                            }
+#splashscreen {
+	z-index:9999;
+    position:relative;
+    height:100vh;
+    width:100%;
+    background-color:white;
+}
+img.splashimage
+{
+	position: absolute;
+	max-width: 80%;
+	top: 10%;
+	left: 10%;
+}
+
+img.splashimage:empty
+{
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+@media screen and (orientation: portrait) {
+  img.splashimage {
+      max-width: 90%;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  img.splashimage {
+      max-height: 90%;
+  }
+}
+
+.content
+{
+	/* fixed width on larger screens */ 
+	max-width: 768px;
+	
+	/* centered */
+	margin-left: auto;
+	margin-right: auto;
+	
+	/* Remove padding */
+	padding: 0 0;
+}
+.status-table
+{
+	/* full width with 1em margin (left, right and top) */
+	table-layout: fixed;
+	margin: auto;
+	margin-top: 1em;
+	width: calc(100% - 2em);
+}
+.status-table td
+{
+	/* status tables nicely split in half */
+	width: 50%;
+}
+ .button-custom-disabled
+ {
+	color: black;
+	background: rgba(128, 167, 92, 0);
+	cursor: not-allowed;
+}
+						
+.button-custom-disabled:hover 
+{
+	color: black;
+	background: rgba(128, 167, 92, 0);
+	cursor: not-allowed;
+}
+
+.relayButton
+{
+	width:100%;
+}
+	
+							

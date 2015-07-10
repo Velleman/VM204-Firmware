@@ -51,32 +51,30 @@ void getAnalogValue(void) {
     appSettings.IoSettings.analog.Value = ADC1BUF0; // yes then get ADC value
     Nop();
 }
-void ftoa(float value, char *string)
- {
-     if (value < 0) {
-         *string++ = '-';
-         value = -value;
-     }
-     sprintf(string, "%lu.%02u",(long) value,(int) ((value - (long) value) * 1000. + 0.5));
- }
 
-void getAnalogInputInString(char * string)
-{
-    //Mail contents
-   float fvalue =appSettings.IoSettings.analog.Value;
-   fvalue /= 1023;
-   fvalue *=3.3;
-   fvalue *=2;
-   ftoa(fvalue,string);
+void ftoa(float value, char *string) {
+    if (value < 0) {
+        *string++ = '-';
+        value = -value;
+    }
+    sprintf(string, "%lu.%02u", (long) value, (int) ((value - (long) value) * 1000. + 0.5));
 }
 
-int getAnalogInputInInteger()
-{
+void getAnalogInputInString(char * string) {
     //Mail contents
-   float fvalue =appSettings.IoSettings.analog.Value;
-   fvalue /= 1023;
-   fvalue *=3.3;
-   fvalue *=2;
-   return fvalue;
+    float fvalue = appSettings.IoSettings.analog.Value;
+    fvalue /= 1023;
+    fvalue *= 3.3;
+    fvalue *= 2;
+    ftoa(fvalue, string);
+}
+
+int getAnalogInputInInteger() {
+    //Mail contents
+    float fvalue = appSettings.IoSettings.analog.Value;
+    fvalue /= 1023;
+    fvalue *= 3.3;
+    fvalue *= 2;
+    return fvalue;
 }
 

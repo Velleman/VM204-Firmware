@@ -15,18 +15,19 @@ extern "C" {
 #endif
 
     typedef struct Input {
-        char Name[64];
+        char Name[32];
         bool_t Status;
     } Input_t;
 
     typedef struct Relay {
-        char Name[64];
+        char Name[32];
         bool_t Status;
         uint_t PulseTime;
+        bool_t PulseActive;
     } Relay_t;
 
     typedef struct Analog {
-        char Name[64];
+        char Name[32];
         double Value;
         int MaxValue;
         int MinValue;

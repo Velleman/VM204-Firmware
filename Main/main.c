@@ -58,9 +58,10 @@
 #include "SPIFlash.h"
 #include "core/net.h"
 #include "drivers/lan8720.h"
+#include "p32xxxx.h"
 
 //Number of simultaneous client connections
-#define APP_HTTP_MAX_CONNECTIONS 3
+#define APP_HTTP_MAX_CONNECTIONS 2
 #define NUM_TIMERS 5
 
 /* An array to hold handles to the created timers. */
@@ -472,7 +473,7 @@ int_t main(void) {
      /* Which timer expired? */
      lArrayIndex = ( long ) pvTimerGetTimerID( pxTimer );
      setRelayValue(lArrayIndex,FALSE);
-
+     appSettings.IoSettings.relays[lArrayIndex-1].PulseActive = FALSE;
  }
 
 void ioInit(void) {
@@ -492,10 +493,7 @@ void ioInit(void) {
     //Enable pull-ups on CN15 (RD6), CN16 (RD7) and CN19 (RD13)
    // CNPUESET = _CNPUE_CNPUE15_MASK | _CNPUE_CNPUE16_MASK | _CNPUE_CNPUE19_MASK;
 
-    TRISDbits.TRISD2 = 0;
-    TRISDbits.TRISD3 = 0;
-    TRISDbits.TRISD4 = 0;
-    TRISDbits.TRISD5 = 0;
+    TRISDCLR = 0x3D;
 
     LATDbits.LATD2 = 0;
     LATDbits.LATD3 = 0;
@@ -721,6 +719,10 @@ static const char* r1 = "r1";
 static const char* r2 = "r2";
 static const char* r3 = "r3";
 static const char* r4 = "r4";
+static const char* p1 = "p1";
+static const char* p2 = "p2";
+static const char* p3 = "p3";
+static const char* p4 = "p4";
 static const char* i1 = "i1";
 static const char* i2 = "i2";
 static const char* i3 = "i3";
@@ -736,6 +738,10 @@ static const char* nameR1 = "NAME_R1";
 static const char* nameR2 = "NAME_R2";
 static const char* nameR3 = "NAME_R3";
 static const char* nameR4 = "NAME_R4";
+static const char* timeR1 = "TIME_R1";
+static const char* timeR2 = "TIME_R2";
+static const char* timeR3 = "TIME_R3";
+static const char* timeR4 = "TIME_R4";
 static const char* nameI1 = "NAME_I1";
 static const char* nameI2 = "NAME_I2";
 static const char* nameI3 = "NAME_I3";
@@ -834,6 +840,14 @@ error_t httpServerCgiCallback(HttpConnection *connection, const char_t *param) {
         strcpy(connection->buffer,appSettings.IoSettings.relays[2].Name);
     }else if (!strcasecmp(param,nameR4)){
         strcpy(connection->buffer,appSettings.IoSettings.relays[3].Name);
+    }else if (!strcasecmp(param,timeR1)){
+        ltoa(connection->buffer,appSettings.IoSettings.relays[0].PulseTime,10);
+    }else if (!strcasecmp(param,timeR2)){
+        ltoa(connection->buffer,appSettings.IoSettings.relays[1].PulseTime,10);
+    }else if (!strcasecmp(param,timeR3)){
+        ltoa(connection->buffer,appSettings.IoSettings.relays[2].PulseTime,10);
+    }else if (!strcasecmp(param,timeR4)){
+        ltoa(connection->buffer,appSettings.IoSettings.relays[3].PulseTime,10);
     }else if (!strcasecmp(param,nameI1)){
         strcpy(connection->buffer,appSettings.IoSettings.inputs[0].Name);
     }else if (!strcasecmp(param,nameI2)){
@@ -1001,6 +1015,33 @@ error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *
                     return ERROR_INVALID_REQUEST;
                 }
             }
+            if(!strcmp(secondParameter,"pulse"))
+            {
+                int time;
+                authorized = parsePulseAPICommand(connection->request.queryString,relays,&time);
+                if(authorized)
+                {
+                    char* relay;
+                           relay = strtok(relays,",");
+                           while(relay != NULL)
+                           {
+                               if(time == -1)
+                               {
+                                    startPulse(atoi(relay),appSettings.IoSettings.relays[atoi(relay)].PulseTime);
+                               }
+                               else
+                               {
+                                   startPulse(atoi(relay),time);
+                               }
+                               relay = strtok(NULL,",");
+                           }
+                    sendIoStatus(connection);
+                }
+                else
+                {
+                    return ERROR_INVALID_REQUEST;
+                }
+            }
         }else if(!strcasecmp(firstParameter,"status"))
         {
             if(isAPIAuthorized(connection->request.queryString))
@@ -1109,6 +1150,8 @@ error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *
     }else if(!strcasecmp(connection->request.uri, "/bootloader")){
         GoToBootLoader();
         return sendIoStatus(connection);
+    }else if(!strcasecmp(connection->request.uri, "/testmail")){
+        return sendTestMail(connection);
     } else
         return ERROR_NOT_FOUND;
 }
@@ -1162,12 +1205,17 @@ void createJsonData(char * data)
     char analogValue[10];
     itoa(analogValue,appSettings.IoSettings.analog.Value,10);
     sprintf(data,"{\"relays\": [%s,%s,%s,%s],"
+            "\"pulse\": [%s,%s,%s,%s],"
             "\"inputs\": [%s,%s,%s,%s],"
             "\"analog\": %s}",
             bool2str(READRY1),
             bool2str(READRY2),
             bool2str(READRY3),
             bool2str(READRY4),
+            bool2str(appSettings.IoSettings.relays[0].PulseActive),
+            bool2str(appSettings.IoSettings.relays[1].PulseActive),
+            bool2str(appSettings.IoSettings.relays[2].PulseActive),
+            bool2str(appSettings.IoSettings.relays[3].PulseActive),
             bool2str(READIN1),
             bool2str(READIN2),
             bool2str(READIN3),
@@ -1595,7 +1643,7 @@ error_t processNames(HttpConnection* connection){
                 //Get property name and value
                 property = strTrimWhitespace(buffer);
                 value = strTrimWhitespace(separator + 1);
-
+                int time;
                 //fill settings
                 if (!strcasecmp(property, r1)) {
                     strcpy(appSettings.IoSettings.relays[0].Name, value);
@@ -1605,6 +1653,30 @@ error_t processNames(HttpConnection* connection){
                     strcpy(appSettings.IoSettings.relays[2].Name, value);
                 } else if (!strcasecmp(property, r4)) {
                     strcpy(appSettings.IoSettings.relays[3].Name, value);
+                } else if (!strcasecmp(property, p1)) {
+                    time = atoi(value);
+                    if(time)
+                    {
+                        appSettings.IoSettings.relays[0].PulseTime =  time;
+                    }
+                } else if (!strcasecmp(property, p2)) {
+                    time = atoi(value);
+                    if(time)
+                    {
+                        appSettings.IoSettings.relays[1].PulseTime =  time;
+                    }
+                } else if (!strcasecmp(property, p3)) {
+                    time = atoi(value);
+                    if(time)
+                    {
+                        appSettings.IoSettings.relays[2].PulseTime = time;
+                    }
+                } else if (!strcasecmp(property, p4)) {
+                    time = atoi(value);
+                    if(time)
+                    {
+                        appSettings.IoSettings.relays[3].PulseTime =  time;
+                    }
                 } else if (!strcasecmp(property, i1)) {
                     strcpy(appSettings.IoSettings.inputs[0].Name, value);
                 } else if (!strcasecmp(property, i2)) {
@@ -1630,7 +1702,9 @@ error_t processNames(HttpConnection* connection){
     if (error != ERROR_END_OF_STREAM) {
         strcpy(buffer,"NOK");
     } else {
+        osSuspendAllTasks();
         WriteSettingsToFlash();
+        osResumeAllTasks();
         strcpy(buffer,"OK");
     }
 
@@ -1754,7 +1828,9 @@ error_t processNetworkSettings(HttpConnection* connection){
     if (error != ERROR_END_OF_STREAM) {
         strcpy(buffer,"NOK");
     } else {
+        osSuspendAllTasks();
         WriteSettingsToFlash();
+        osResumeAllTasks();
         strcpy(buffer,"OK");
     }
 
@@ -1866,10 +1942,12 @@ error_t processAuthenticationSettings(HttpConnection* connection){
     } while (0);
 
     if (error != ERROR_END_OF_STREAM) {
-        strcpy(buffer,"NOK");
+        strcpy(buffer, "NOK");
     } else {
+        osSuspendAllTasks();
         WriteSettingsToFlash();
-        strcpy(buffer,"OK");
+        osResumeAllTasks();
+        strcpy(buffer, "OK");
     }
 
     n = strlen(buffer);

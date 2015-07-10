@@ -441,6 +441,21 @@
           </linkerLibItems>
         </linkerTool>
         <loading>
+          <makeArtifact PL="../Bootloader/MPLAB_X_Workspace/ETH_Btl_ETH_StarterKit.X"
+                        CT="1"
+                        CN="default"
+                        AC="true"
+                        BL="true"
+                        WD="../Bootloader/MPLAB_X_Workspace/ETH_Btl_ETH_StarterKit.X"
+                        BC="${MAKE} MAKE_OPTIONS=&quot; -j 16&quot; -f Makefile CONF=default"
+                        DBC="${MAKE} MAKE_OPTIONS=&quot; -j 16&quot; -f Makefile CONF=default TYPE_IMAGE=DEBUG_RUN"
+                        CC="rm -rf &quot;build/default&quot; &quot;dist/default&quot;"
+                        OP="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.hex"
+                        DOP="dist/default/debug/ETH_Btl_ETH_StarterKit.X.debug.elf"
+                        FL="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.hex"
+                        PD="dist/default/production/ETH_Btl_ETH_StarterKit.X.production.elf"
+                        DD="dist/default/debug/ETH_Btl_ETH_StarterKit.X.debug.elf">
+          </makeArtifact>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
@@ -464,6 +479,7 @@
         <property key="extra-include-directories"
                   value="cyclone_crypto;cyclone_ssl;cyclone_tcp;common;common\freertos\portable\mplab\pic32mx;common\freertos\include;Main;..\..\..\..\Downloads\CycloneTCP_SSL_Crypto_Open_1_6_0\demo\common\microchip\boards\pic32_eth_starter_kit;..\..\VM204.X\cyclone_tcp"/>
         <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="false"/>
         <property key="optimization-level" value="-O1"/>
@@ -504,9 +520,17 @@
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories"
                   value="Main;FreeRTOS\include;common\freertos\include;cyclone_tcp;..\..\VM204.X\cyclone_tcp"/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
-        <property key="heap-size" value="90000"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value="91000"/>
         <property key="input-libraries" value=""/>
         <property key="linker-symbols" value=""/>
         <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
@@ -577,6 +601,9 @@
         <property key="OUTPUT COMPARE 5" value="true"/>
         <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
         <property key="REAL TIME CLOCK" value="true"/>
+        <property key="SPI 2" value="true"/>
+        <property key="SPI 3" value="true"/>
+        <property key="SPI 4" value="true"/>
         <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
         <property key="TIMER1" value="true"/>
         <property key="TIMER2" value="true"/>

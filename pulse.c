@@ -27,35 +27,27 @@
 #include "timers.h"
 #include "shared.h"
 #include "relays.h"
-void startPulse(int id,int periodInSeconds)
-{
-    TimerHandle_t timer = xTimers[id];
-    if(xTimerIsTimerActive(timer))
-    {
 
-    }
-    else
-    {
+void startPulse(int id, int periodInSeconds) {
+    TimerHandle_t timer = xTimers[id];
+    if (xTimerIsTimerActive(timer)) {
+
+    } else {
         /* xTimer is not active, change its period to 500ms.  This will also
         cause the timer to start.  Block for a maximum of 100 ticks if the
         change period command cannot immediately be sent to the timer
         command queue. */
-        if( xTimerChangePeriod( timer, (periodInSeconds*1000) / portTICK_PERIOD_MS, 50 ) == pdPASS )
-        {
+        if (xTimerChangePeriod(timer, (periodInSeconds * 1000) / portTICK_PERIOD_MS, 50) == pdPASS) {
             /* Start the timer.  No block time is specified, and even if one was
              it would be ignored because the RTOS scheduler has not yet been
              started. */
-             if( xTimerStart( timer, 0 ) != pdPASS )
-             {
-                 
-             }
-             else
-             {
-                 setRelayValue(id,TRUE);
-             }
-        }
-        else
-        {
+            if (xTimerStart(timer, 0) != pdPASS) {
+
+            } else {
+                setRelayValue(id, TRUE);
+                appSettings.IoSettings.relays[id-1].PulseActive = TRUE;
+            }
+        } else {
             /* The command could not be sent, even after waiting for 100 ticks
             to pass.  Take appropriate action here. */
         }

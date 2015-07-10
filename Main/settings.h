@@ -30,13 +30,8 @@ extern "C" {
 #define NOTIFICATIONS_SIZE 10
 #define SUBJECT_INPUT_RISING "[%s] %s has been activated on %s (UTC)"
 #define SUBJECT_INPUT_FALLING "[%s] %s has been deactivated on %s (UTC)"
-#define SUBJECT_BOOT "[%s] %s is currently %s on %s (UTC)"
-#define SUBJECT_ANALOG "[%s] The Card has booted"
-    
-    
-
-
-  
+#define SUBJECT_ANALOG "[%s] %s is currently %s on %s (UTC)"
+#define SUBJECT_BOOT "[%s] The Card has booted"
 
     typedef struct {
         char recipients[256];
@@ -72,13 +67,13 @@ extern "C" {
         char Password[32];
     } AuthSettings;
 
-    typedef struct Vm204SmtpAuthInfo{
+    typedef struct Vm204SmtpAuthInfo {
         char serverName[64];
-        int serverPort; 
+        int serverPort;
         char userName[64];
         char passWord[64];
         bool_t useTls;
-    }Vm204SmtpAuthInfo;
+    } Vm204SmtpAuthInfo;
 
     typedef struct Settings {
         NetworkSettings NetworkSetting;

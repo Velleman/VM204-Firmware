@@ -1,6 +1,7 @@
 #include "VM204.h"
 //#include "SPIFlash.h"
 //#include "SPIFlash.h"
+
 /**
  * @file relay.c
  * @brief Embedded resource management
@@ -42,85 +43,77 @@ error_t ReadSettingsFromFlash() {
 
     SPIFlashInit();
     //root
-    ReadSetting(appSettings.CardName,32);
-    ReadSetting(appSettings.CustomJSLink,128);
-    ReadSetting(appSettings.CustomJSLink,128);
-    ReadSetting(appSettings.key,32);
+    ReadSetting(appSettings.CardName, 32);
+    ReadSetting(appSettings.CustomJSLink, 128);
+    ReadSetting(appSettings.CustomJSLink, 128);
+    ReadSetting(appSettings.key, 32);
     //Network
-    ReadSetting(&appSettings.NetworkSetting.DhcpEnabled,1);
-    ReadSetting(appSettings.NetworkSetting.address,16);
-    ReadSetting(appSettings.NetworkSetting.Gateway,16);
-    ReadSetting(appSettings.NetworkSetting.SubnetMask,16);
-    ReadSetting(appSettings.NetworkSetting.PrimaryDNS,16);
-    ReadSetting(appSettings.NetworkSetting.SecondaryDNS,16);
-    ReadSetting(appSettings.NetworkSetting.MacAddress,18);
-    
+    ReadSetting(&appSettings.NetworkSetting.DhcpEnabled, 1);
+    ReadSetting(appSettings.NetworkSetting.address, 16);
+    ReadSetting(appSettings.NetworkSetting.Gateway, 16);
+    ReadSetting(appSettings.NetworkSetting.SubnetMask, 16);
+    ReadSetting(appSettings.NetworkSetting.PrimaryDNS, 16);
+    ReadSetting(appSettings.NetworkSetting.SecondaryDNS, 16);
+    ReadSetting(appSettings.NetworkSetting.MacAddress, 18);
+
     appSettings.NetworkSetting.PortWebServer = ReadInt();
     //Relays
-    int i=0;
-    for(i=0;i<4;i++)
-    {
-        ReadSetting(appSettings.IoSettings.relays[i].Name,64);
-        appSettings.IoSettings.relays[i].PulseTime= ReadInt();
+    int i = 0;
+    for (i = 0; i < 4; i++) {
+        ReadSetting(appSettings.IoSettings.relays[i].Name, 32);
+        appSettings.IoSettings.relays[i].PulseTime = ReadInt();
     }
     //Inputs
-    for(i=0;i<4;i++)
-    {
-        ReadSetting(appSettings.IoSettings.inputs[i].Name,64);
+    for (i = 0; i < 4; i++) {
+        ReadSetting(appSettings.IoSettings.inputs[i].Name, 32);
     }
     //Analog
-    ReadSetting(appSettings.IoSettings.analog.Name,64);
-    ReadSetting(&appSettings.IoSettings.analog.MaxValue,1);
-    ReadSetting(&appSettings.IoSettings.analog.MinValue,1);
-    ReadSetting(&appSettings.IoSettings.analog.AlarmValue,1);
+    ReadSetting(appSettings.IoSettings.analog.Name, 32);
+    ReadSetting(&appSettings.IoSettings.analog.MaxValue, 1);
+    ReadSetting(&appSettings.IoSettings.analog.MinValue, 1);
+    ReadSetting(&appSettings.IoSettings.analog.AlarmValue, 1);
     //Auth
-    ReadSetting(appSettings.AuthSettings.Login,32);
-    ReadSetting(appSettings.AuthSettings.Password,32);
+    ReadSetting(appSettings.AuthSettings.Login, 32);
+    ReadSetting(appSettings.AuthSettings.Password, 32);
     //Smtp
-    ReadSetting(appSettings.EmailSettings.serverName,64);
-    
-    appSettings.IoSettings.relays[i].PulseTime = ReadInt();
-    ReadSetting(appSettings.EmailSettings.userName,64);
-    ReadSetting(appSettings.EmailSettings.passWord,64);
-    ReadSetting(&appSettings.EmailSettings.useTls,1);
+    ReadSetting(appSettings.EmailSettings.serverName, 64);
+
+    appSettings.EmailSettings.serverPort = ReadInt();
+    ReadSetting(appSettings.EmailSettings.userName, 64);
+    ReadSetting(appSettings.EmailSettings.passWord, 64);
+    ReadSetting(&appSettings.EmailSettings.useTls, 1);
     //Notifications
-    for(i=0;i<10;i++)
-    {
-        ReadSetting(&appSettings.Notifications[i].enable,1);
-        ReadSetting(appSettings.Notifications[i].mail.recipients,255);
+    for (i = 0; i < 10; i++) {
+        ReadSetting(&appSettings.Notifications[i].enable, 1);
+        ReadSetting(appSettings.Notifications[i].mail.recipients, 255);
     }
     //CreateJsonFromSettings();
     return NO_ERROR;
 }
 
-int ReadInt(void)
-{
+int ReadInt(void) {
     int integer;
     char data[4];
-    ReadSetting(data,4);
+    ReadSetting(data, 4);
     integer = data[3] | ((int) data[2] << 8) | ((int) data[1] << 16) | ((int) data[0] << 24);
     return integer;
 }
 
-void WriteInt(int val)
-{
+void WriteInt(int val) {
     char data[4];
     data[0] = (val >> 24) & 0xFF;
     data[1] = (val >> 16) & 0xFF;
     data[2] = (val >> 8) & 0xFF;
     data[3] = val & 0xFF;
-    SPIFlashWriteArray(data,4);
+    SPIFlashWriteArray(data, 4);
 }
 
-void ReadSetting(char* dest,int bytes)
-{
+void ReadSetting(char* dest, int bytes) {
     static int address = 0;
-    if(bytes != 0)
-    {
-        SPIFlashReadArray(address,dest,bytes);
+    if (bytes != 0) {
+        SPIFlashReadArray(address, dest, bytes);
         address += bytes;
-    }
-    else
+    } else
         address = 0;
 }
 
@@ -129,13 +122,11 @@ error_t EraseSettings() {
     SPIFlashEraseAll();
 }
 
-
-void GoToBootLoader()
-{
+void GoToBootLoader() {
     SPIFlashInit();
     SPIFlashBeginWrite(4095);
-    char_t boot[8]= {0,0,0,0,0,0,0,0};
-    SPIFlashWriteArray(boot,8);
+    char_t boot[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    SPIFlashWriteArray(boot, 8);
     reboot();
 }
 
@@ -151,67 +142,65 @@ void WriteSettingsToFlash() {
     SPIFlashInit();
     SPIFlashBeginWrite(0);
     //root
-    SPIFlashWriteArray(appSettings.CardName,32);
-    SPIFlashWriteArray(appSettings.CustomJSLink,128);
-    SPIFlashWriteArray(appSettings.CustomJSLink,128);
-    SPIFlashWriteArray(appSettings.key,32);
+    SPIFlashWriteArray(appSettings.CardName, 32);
+    SPIFlashWriteArray(appSettings.CustomJSLink, 128);
+    SPIFlashWriteArray(appSettings.CustomJSLink, 128);
+    SPIFlashWriteArray(appSettings.key, 32);
     //Network
-    SPIFlashWriteArray(&appSettings.NetworkSetting.DhcpEnabled,1);
-    SPIFlashWriteArray(appSettings.NetworkSetting.address,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.Gateway,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.SubnetMask,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.PrimaryDNS,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.SecondaryDNS,16);
-    SPIFlashWriteArray(appSettings.NetworkSetting.MacAddress,18);    
+    SPIFlashWriteArray(&appSettings.NetworkSetting.DhcpEnabled, 1);
+    SPIFlashWriteArray(appSettings.NetworkSetting.address, 16);
+    SPIFlashWriteArray(appSettings.NetworkSetting.Gateway, 16);
+    SPIFlashWriteArray(appSettings.NetworkSetting.SubnetMask, 16);
+    SPIFlashWriteArray(appSettings.NetworkSetting.PrimaryDNS, 16);
+    SPIFlashWriteArray(appSettings.NetworkSetting.SecondaryDNS, 16);
+    SPIFlashWriteArray(appSettings.NetworkSetting.MacAddress, 18);
     WriteInt(appSettings.NetworkSetting.PortWebServer);
 
     //Relays
-    int i=0;
-    for(i=0;i<4;i++)
-    {
-        SPIFlashWriteArray(appSettings.IoSettings.relays[i].Name,64);
+    int i = 0;
+    for (i = 0; i < 4; i++) {
+        SPIFlashWriteArray(appSettings.IoSettings.relays[i].Name, 32);
         WriteInt(appSettings.IoSettings.relays[i].PulseTime);
     }
     //Inputs
-    for(i=0;i<4;i++)
-    {
-        SPIFlashWriteArray(appSettings.IoSettings.inputs[i].Name,64);
+    for (i = 0; i < 4; i++) {
+        SPIFlashWriteArray(appSettings.IoSettings.inputs[i].Name, 32);
     }
     //Analog
-    SPIFlashWriteArray(appSettings.IoSettings.analog.Name,64);
-    SPIFlashWriteArray(&appSettings.IoSettings.analog.MaxValue,1);
-    SPIFlashWriteArray(&appSettings.IoSettings.analog.MinValue,1);
-    SPIFlashWriteArray(&appSettings.IoSettings.analog.AlarmValue,1);
+    SPIFlashWriteArray(appSettings.IoSettings.analog.Name, 32);
+    SPIFlashWriteArray(&appSettings.IoSettings.analog.MaxValue, 1);
+    SPIFlashWriteArray(&appSettings.IoSettings.analog.MinValue, 1);
+    SPIFlashWriteArray(&appSettings.IoSettings.analog.AlarmValue, 1);
     //Auth
-    SPIFlashWriteArray(appSettings.AuthSettings.Login,32);
-    SPIFlashWriteArray(appSettings.AuthSettings.Password,32);
+    SPIFlashWriteArray(appSettings.AuthSettings.Login, 32);
+    SPIFlashWriteArray(appSettings.AuthSettings.Password, 32);
     //Smtp
-    SPIFlashWriteArray(appSettings.EmailSettings.serverName,64);
+    SPIFlashWriteArray(appSettings.EmailSettings.serverName, 64);
 
     WriteInt(appSettings.EmailSettings.serverPort);
-    SPIFlashWriteArray(appSettings.EmailSettings.userName,64);
-    SPIFlashWriteArray(appSettings.EmailSettings.passWord,64);
-    SPIFlashWriteArray(&appSettings.EmailSettings.useTls,1);
+    SPIFlashWriteArray(appSettings.EmailSettings.userName, 64);
+    SPIFlashWriteArray(appSettings.EmailSettings.passWord, 64);
+    SPIFlashWriteArray(&appSettings.EmailSettings.useTls, 1);
     //Notifications
-    for(i=0;i<10;i++)
-    {
-        SPIFlashWriteArray(&appSettings.Notifications[i].enable,1);
-        SPIFlashWriteArray(appSettings.Notifications[i].mail.recipients,255);
+    for (i = 0; i < 10; i++) {
+        SPIFlashWriteArray(&appSettings.Notifications[i].enable, 1);
+        SPIFlashWriteArray(appSettings.Notifications[i].mail.recipients, 255);
     }
 }
 
 
 static const char* alice = "alice@email.com;trudy@email.com";
 static const char* bob = "bob@email.com";
+
 void LoadDefaultSettings(YarrowContext* yarrowContext) {
     int i;
     //CardName
     strcpy(appSettings.CardName, "VM204");
-    strcpy(appSettings.CustomJSLink,"");
-    strcpy(appSettings.CustomCSSLink,"");
+    strcpy(appSettings.CustomJSLink, "");
+    strcpy(appSettings.CustomCSSLink, "");
     //Get part of mac address hard coded in the PIC;
     srand(EMAC1SA0);
-    gen_random(appSettings.key,32);
+    gen_random(appSettings.key, 32);
     //NetworkSettings
     appSettings.NetworkSetting.DhcpEnabled = TRUE;
     appSettings.NetworkSetting.PortWebServer = 80;
@@ -233,7 +222,7 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
     appSettings.IoSettings.relays[1].PulseTime = 60;
     appSettings.IoSettings.relays[2].PulseTime = 60;
     appSettings.IoSettings.relays[3].PulseTime = 60;
-    
+
     strcpy(appSettings.IoSettings.analog.Name, "ANALOG");
     appSettings.IoSettings.analog.AlarmValue = 128;
     appSettings.IoSettings.analog.MinValue = 2147483647;
@@ -245,23 +234,23 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
     //Email Settings
     //Auth
     //For EmailSettings check your local ISP or check your mail provider
-    strcpy(appSettings.EmailSettings.userName,"email@example.com"); //ex. test@test.com
-    strcpy(appSettings.EmailSettings.passWord,"password"); //Password
+    strcpy(appSettings.EmailSettings.userName, "email@example.com"); //ex. test@test.com
+    strcpy(appSettings.EmailSettings.passWord, "password"); //Password
     appSettings.EmailSettings.serverPort = 587; //
-    strcpy(appSettings.EmailSettings.serverName,"smtp.example.com"); //example smtp.live.com or smtp.gmail.com
+    strcpy(appSettings.EmailSettings.serverName, "smtp.example.com"); //example smtp.live.com or smtp.gmail.com
     appSettings.EmailSettings.useTls = FALSE;
     //Notifications
-    strcpy(appSettings.Notifications[NOTIFICATION_BOOT].mail.recipients,alice);
+    strcpy(appSettings.Notifications[NOTIFICATION_BOOT].mail.recipients, alice);
     appSettings.Notifications[NOTIFICATION_BOOT].enable = FALSE;
 
-    
+
     for (i = 0; i < 4; i++) {
         //Rising
-        strcpy(appSettings.Notifications[i].mail.recipients, alice);        
+        strcpy(appSettings.Notifications[i].mail.recipients, alice);
         appSettings.Notifications[i].enable = FALSE;
 
         //Falling
-        strcpy(appSettings.Notifications[i + 4].mail.recipients,alice);
+        strcpy(appSettings.Notifications[i + 4].mail.recipients, alice);
         appSettings.Notifications[i + 4].enable = FALSE;
     }
     //Analog
@@ -272,33 +261,28 @@ void LoadDefaultSettings(YarrowContext* yarrowContext) {
 void UpdateNetworkSettings() {
     char changed = 0;
     char ip[16];
-    if (netGetDefaultInterface()->ipv4Config.addr != 0)
-    {
+    if (netGetDefaultInterface()->ipv4Config.addr != 0) {
         strcpy(appSettings.NetworkSetting.address, ipv4AddrToString(netGetDefaultInterface()->ipv4Config.addr, ip));
         changed = 1;
     }
-    if (netGetDefaultInterface()->ipv4Config.defaultGateway != 0)
-    {
+    if (netGetDefaultInterface()->ipv4Config.defaultGateway != 0) {
         strcpy(appSettings.NetworkSetting.Gateway, ipv4AddrToString(netGetDefaultInterface()->ipv4Config.defaultGateway, ip));
         changed = 1;
     }
-    if (netGetDefaultInterface()->ipv4Config.subnetMask != 0)
-    {
+    if (netGetDefaultInterface()->ipv4Config.subnetMask != 0) {
         strcpy(appSettings.NetworkSetting.SubnetMask, ipv4AddrToString(netGetDefaultInterface()->ipv4Config.subnetMask, ip));
         changed = 1;
     }
-    if (netGetDefaultInterface()->ipv4Config.dnsServer[0] != 0)
-    {
+    if (netGetDefaultInterface()->ipv4Config.dnsServer[0] != 0) {
         strcpy(appSettings.NetworkSetting.PrimaryDNS, ipv4AddrToString(netGetDefaultInterface()->ipv4Config.dnsServer[0], ip));
         changed = 1;
     }
-    if (netGetDefaultInterface()->ipv4Config.dnsServer[1] != 0)
-    {
+    if (netGetDefaultInterface()->ipv4Config.dnsServer[1] != 0) {
         strcpy(appSettings.NetworkSetting.SecondaryDNS, ipv4AddrToString(netGetDefaultInterface()->ipv4Config.dnsServer[1], ip));
         changed = 1;
     }
     //if(changed)
-        //CreateJsonFromSettings();
+    //CreateJsonFromSettings();
 }
 
 

@@ -9,29 +9,33 @@
     <link rel="stylesheet" href="css/pure-min.css">
     <link rel="stylesheet" href="css/layouts/side-menu.css">
     <link rel="stylesheet" href="css/grids-responsive-min.css">
-    <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> </head>
-	<style>	table {
-		table-layout:fixed;width:190px;
-	}</style>
+    <link rel="stylesheet" href=""> </head>
+<style>
+    table {
+        table-layout: fixed;
+        width: 190px;
+    }
+</style>
+
 <body>
     <div id="layout">
         <a href="#menu" id="menuLink" class="menu-link"> <span></span> </a>
         <div id="menu">
-            <div class="pure-menu pure-menu-open"> 
+            <div class="pure-menu pure-menu-open">
                 <ul class="pure-menu-list">
-					<li class="pure-menu-item"><a class="pure-menu-link" href="index.shtml">Control</a> </li>
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="index.shtml">Control</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#authentication">Authentication</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#network">Network</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#email">E-mail</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#customize">Customize</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#notifications">Notifications</a> </li>
-					<li class="pure-menu-item"><a class="pure-menu-link" href="#api">API</a> </li>
-					<li class="pure-menu-item"><a class="pure-menu-link" href="api_reference.shtml">API Reference</a> </li>
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="#api">API</a> </li>
+                    <li class="pure-menu-item"><a class="pure-menu-link" href="api_reference.shtml">API Reference</a> </li>
                     <li class="pure-menu-item"><a class="pure-menu-link" href="#about">About</a> </li>
                 </ul>
             </div>
         </div>
-        <div id="main">          
+        <div id="main">
             <div class="header" id="authentication">
                 <h1>Authentication</h1>
                 <h2>Manage access</h2> </div>
@@ -44,7 +48,7 @@
                             <input type="text" maxlength="32" name="login_field" id="login_field" value=""> </div>
                         <div class="pure-control-group">
                             <label for="password_field">Password:</label>
-                            <input type="password" maxlength="32" name="password_field" id="password_field" value=""> </div>
+                            <input type="password" maxlength="32" name="password_field" id="password_field" value="placebo"> </div>
                         <div class="pure-controls">
                             <button type="submit" id="sendAuthSettingsButton" class="pure-button pure-button-primary">Save and reboot</button>
                         </div>
@@ -101,7 +105,7 @@
                         <div class="pure-control-group">
                             <label for="smtp_port">Port:</label>
                             <input type="text" name="port" id="smtp_port" value="25"> </div>
-						<div class="pure-controls">
+                        <div class="pure-controls">
                             <label for="smtp_tls" class="pure-checkbox">
                                 <input type="checkbox" id="smtp_tls"> TLS</label>
                         </div>
@@ -113,10 +117,11 @@
                             <input type="text" maxlength="64" name="userName" value="user" id="smtp_user"> </div>
                         <div class="pure-control-group">
                             <label for="smtp_pass">Password:</label>
-                            <input type="password" maxlength="64" name="password" value="password" id="smtp_pass"> </div>
+                            <input type="password" maxlength="64" name="password" value="placebo" id="smtp_pass"> </div>
                     </fieldset>
                     <div class="pure-controls">
-                        <button type="submit" id="sendMailSettingsButton" class="pure-button pure-button-primary">Save and reboot</button>
+                        <button type="submit" id="sendMailSettingsButton" class="pure-button pure-button-primary">Save</button>
+						<button type="button" id="testMailSettingsButton" class="pure-button pure-button-primary">Test Mail Settings</button>
                     </div>
                 </form>
             </div>
@@ -125,13 +130,12 @@
                 <h2>Give IO names and customize the layout with javascript</h2> </div>
             <div class="content">
                 <form id="nameSettingsForm" class="pure-form pure-form-aligned">
-					<fieldset>
-						<legend>Cardname</legend>
-						 <div class="pure-control-group">
+                    <fieldset>
+                        <legend>Cardname</legend>
+                        <div class="pure-control-group">
                             <label for="name_card">Cardname:</label>
-                            <input type="text" maxlength="32" name="name_card" id="name_card" value="VM204"> 
-						</div>
-					</fieldset>
+                            <input type="text" maxlength="32" name="name_card" id="name_card" value="VM204"> </div>
+                    </fieldset>
                     <fieldset>
                         <legend>Relays</legend>
                         <div class="pure-control-group">
@@ -146,6 +150,21 @@
                         <div class="pure-control-group">
                             <label for="name_relay4">Relay 4:</label>
                             <input type="text" maxlength="32" name="name_relay4" id="name_relay4" value="Relay 4"> </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Pulse</legend>
+                        <div class="pure-control-group">
+                            <label for="pulse_relay1">Relay 1:</label>
+                            <input type="number" maxlength="32" name="pulse_relay1" id="pulse_relay1" min="1" max="4000000" value="1"> Seconds </div>
+                        <div class="pure-control-group">
+                            <label for="pulse_relay2">Relay 2:</label>
+                            <input type="number" maxlength="32" name="pulse_relay2" id="pulse_relay2" min="1" max="4000000" value="1"> Seconds </div>
+                        <div class="pure-control-group">
+                            <label for="pulse_relay3">Relay 3:</label>
+                            <input type="number" maxlength="32" name="pulse_relay3" id="pulse_relay3" min="1" max="4000000" value="1"> Seconds </div>
+                        <div class="pure-control-group">
+                            <label for="pulse_relay4">Relay 4:</label>
+                            <input type="number" maxlength="32" name="pulse_relay4" id="pulse_relay4" min="1" max="4000000" value="1"> Seconds </div>
                     </fieldset>
                     <fieldset>
                         <legend>Inputs</legend>
@@ -187,8 +206,7 @@
             </div>
             <div class="header" id="notifications">
                 <h1>Notifications</h1>
-                <h2>Configure e-mail notifications</h2> 
-			</div>
+                <h2>Configure e-mail notifications</h2> </div>
             <div class="content">
                 <form id="AlarmForm" class="pure-form pure-form-aligned">
                     <fieldset>
@@ -222,48 +240,41 @@
                 </form>
             </div>
         </div>
-		<div class="header" id="api">
-                <h1>API</h1>
-				<h2>Get or Generate a new API key</h2> 
-		</div>
-		 <div class="content">
-			<form class="pure-form pure-form-aligned">
-			<fieldset>
-				 <legend>API</legend>
-				 
-                <div class="pure-control-group">
-                            <label for="api_key">API Key:</label>
-                            <input class="pure-input-1-2" type="text" name="api_key" id="api_key" maxlength="32" value="<!--#exec cgi="API_KEY" -->" readonly>
-							<button type="submit" id="regeneratekeyButton" class="pure-button pure-button-primary">Regenerate</button>
-							</div>
-							
-			</fieldset>
-			</form>
+        <div class="header" id="api">
+            <h1>API</h1>
+            <h2>Get or Generate a new API key</h2> </div>
+        <div class="content">
+            <form class="pure-form pure-form-aligned">
+                <fieldset>
+                    <legend>API</legend>
+                    <div class="pure-control-group">
+                        <label for="api_key">API Key:</label>
+                        <input class="pure-input-1-2" type="text" name="api_key" id="api_key" maxlength="32" value="<!--#exec cgi="API_KEY" -->" readonly>
+                        <button type="submit" id="regeneratekeyButton" class="pure-button pure-button-primary">Regenerate</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-		<div class="header" id="firmware">
-                <h1>Firmware Upgrade</h1>
-				<h2>Goto bootloader</h2> 
-		</div>
-		 <div class="content">
-			<form class="pure-form pure-form-aligned">
-			<fieldset>
-				 <legend>Firmware Upgrade</legend>
-				 
-                <div class="pure-control-group">
-                            <label for="requestBootloader">Goto Bootloader:</label>
-                     
-							<button type="submit" id="requestBootloader" class="pure-button pure-button-primary">Reboot</button>
-							</div>
-							
-			</fieldset>
-			</form>
+        <div class="header" id="firmware">
+            <h1>Firmware Upgrade</h1>
+            <h2>Goto bootloader</h2> </div>
+        <div class="content">
+            <form class="pure-form pure-form-aligned">
+                <fieldset>
+                    <legend>Firmware Upgrade</legend>
+                    <div class="pure-control-group">
+                        <label for="requestBootloader">Goto Bootloader:</label>
+                        <button type="submit" id="requestBootloader" class="pure-button pure-button-primary">Reboot</button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div class="header" id="about">
             <h1>About</h1>
             <h2>Device information</h2> </div>
         <div class="content">
             <dl><dt>Board</dt>
-                <dd>
+               <dd>
                     <!--#exec cgi="BOARD_NAME" -->
                 </dd><dt>MAC address</dt>
                 <dd>
@@ -288,5 +299,5 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/vm204.js"></script>
-    <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
+    <script src=""></script>
 </body>

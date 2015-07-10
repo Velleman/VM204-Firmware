@@ -123,13 +123,14 @@ error_t udpDiscoveryStart(void) {
 int diff;
 
 error_t error;
+
 void udpDiscoveryTask(void *param) {
     //error_t error;
     size_t length;
     uint16_t port;
     IpAddr ipAddr;
     DiscoveryServiceContext *discoveryContext;
-    
+
     int n = 0;
     //Get a pointer to the context
     discoveryContext = (DiscoveryServiceContext *) param;
@@ -158,25 +159,23 @@ void udpDiscoveryTask(void *param) {
             if (diff == 0) {
                 ipAddr.ipv4Addr = IPV4_BROADCAST_ADDR;
                 udpSendDiscovery(discoveryContext, ipAddr, 30303);
-                memset(discoveryContext->buffer,0,sizeof(discoveryContext->buffer));
-            }
-            else
-            {
-                memset(discoveryContext->buffer,0,sizeof(discoveryContext->buffer));
+                memset(discoveryContext->buffer, 0, sizeof (discoveryContext->buffer));
+            } else {
+                memset(discoveryContext->buffer, 0, sizeof (discoveryContext->buffer));
             }
         }
         osDelayTask(500);
     }
 }
-    
+
 void udpSendDiscovery(DiscoveryServiceContext *dcontext, IpAddr ipAddr, int port) {
     error_t error;
     NetInterface* interface;
-    interface = tcpIpStackGetDefaultInterface();    
+    interface = tcpIpStackGetDefaultInterface();
     char buffer[33];
-    memset(buffer,0,sizeof(buffer));
-    itoa (buffer,appSettings.NetworkSetting.PortWebServer,10);
-    sprintf(dcontext->buffer,"Yes?\r\n%s\r\n%s\r\n%s\r\n%s\r\n",buffer,interface->hostname,macAddrToString(&interface->macAddr,NULL),FIRMWARE_VERSION);
+    memset(buffer, 0, sizeof (buffer));
+    itoa(buffer, appSettings.NetworkSetting.PortWebServer, 10);
+    sprintf(dcontext->buffer, "Yes?\r\n%s\r\n%s\r\n%s\r\n%s\r\n", buffer, interface->hostname, macAddrToString(&interface->macAddr, NULL), FIRMWARE_VERSION);
     error = socketSendTo(dcontext->socket, &ipAddr, port,
             dcontext->buffer, strlen(dcontext->buffer), NULL, 0);
 }

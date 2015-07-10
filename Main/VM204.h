@@ -81,4 +81,5 @@ bool_t checkRising(bool_t previous,bool_t current);
 error_t getCurrentTime(void);
 void CreateJsonFromSettings(void);
 void vTimerCallback(void*  pxTimer );
+error_t sendTestMailResponse(HttpConnection* connection);
 #endif
