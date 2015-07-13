@@ -82,4 +82,5 @@ error_t getCurrentTime(void);
 void CreateJsonFromSettings(void);
 void vTimerCallback(void*  pxTimer );
 error_t sendTestMailResponse(HttpConnection* connection);
+bool_t flashIsEmpty(void);
 #endif

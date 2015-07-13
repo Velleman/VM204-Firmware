@@ -1,6 +1,5 @@
 #include "VM204.h"
-//#include "SPIFlash.h"
-//#include "SPIFlash.h"
+
 
 /**
  * @file relay.c
@@ -42,53 +41,80 @@ unsigned int length;
 error_t ReadSettingsFromFlash() {
 
     SPIFlashInit();
-    //root
-    ReadSetting(appSettings.CardName, 32);
-    ReadSetting(appSettings.CustomJSLink, 128);
-    ReadSetting(appSettings.CustomJSLink, 128);
-    ReadSetting(appSettings.key, 32);
-    //Network
-    ReadSetting(&appSettings.NetworkSetting.DhcpEnabled, 1);
-    ReadSetting(appSettings.NetworkSetting.address, 16);
-    ReadSetting(appSettings.NetworkSetting.Gateway, 16);
-    ReadSetting(appSettings.NetworkSetting.SubnetMask, 16);
-    ReadSetting(appSettings.NetworkSetting.PrimaryDNS, 16);
-    ReadSetting(appSettings.NetworkSetting.SecondaryDNS, 16);
-    ReadSetting(appSettings.NetworkSetting.MacAddress, 18);
+    if (!flashIsEmpty()) {
+        //root
+        ReadSetting(appSettings.CardName, 32);
+        ReadSetting(appSettings.CustomJSLink, 128);
+        ReadSetting(appSettings.CustomJSLink, 128);
+        ReadSetting(appSettings.key, 32);
+        //Network
+        ReadSetting(&appSettings.NetworkSetting.DhcpEnabled, 1);
+        ReadSetting(appSettings.NetworkSetting.address, 16);
+        ReadSetting(appSettings.NetworkSetting.Gateway, 16);
+        ReadSetting(appSettings.NetworkSetting.SubnetMask, 16);
+        ReadSetting(appSettings.NetworkSetting.PrimaryDNS, 16);
+        ReadSetting(appSettings.NetworkSetting.SecondaryDNS, 16);
+        ReadSetting(appSettings.NetworkSetting.MacAddress, 18);
 
-    appSettings.NetworkSetting.PortWebServer = ReadInt();
-    //Relays
-    int i = 0;
-    for (i = 0; i < 4; i++) {
-        ReadSetting(appSettings.IoSettings.relays[i].Name, 32);
-        appSettings.IoSettings.relays[i].PulseTime = ReadInt();
-    }
-    //Inputs
-    for (i = 0; i < 4; i++) {
-        ReadSetting(appSettings.IoSettings.inputs[i].Name, 32);
-    }
-    //Analog
-    ReadSetting(appSettings.IoSettings.analog.Name, 32);
-    ReadSetting(&appSettings.IoSettings.analog.MaxValue, 1);
-    ReadSetting(&appSettings.IoSettings.analog.MinValue, 1);
-    ReadSetting(&appSettings.IoSettings.analog.AlarmValue, 1);
-    //Auth
-    ReadSetting(appSettings.AuthSettings.Login, 32);
-    ReadSetting(appSettings.AuthSettings.Password, 32);
-    //Smtp
-    ReadSetting(appSettings.EmailSettings.serverName, 64);
+        appSettings.NetworkSetting.PortWebServer = ReadInt();
+        //Relays
+        int i = 0;
+        for (i = 0; i < 4; i++) {
+            ReadSetting(appSettings.IoSettings.relays[i].Name, 32);
+            appSettings.IoSettings.relays[i].PulseTime = ReadInt();
+        }
+        //Inputs
+        for (i = 0; i < 4; i++) {
+            ReadSetting(appSettings.IoSettings.inputs[i].Name, 32);
+        }
+        //Analog
+        ReadSetting(appSettings.IoSettings.analog.Name, 32);
+        ReadSetting(&appSettings.IoSettings.analog.MaxValue, 1);
+        ReadSetting(&appSettings.IoSettings.analog.MinValue, 1);
+        ReadSetting(&appSettings.IoSettings.analog.AlarmValue, 1);
+        //Auth
+        ReadSetting(appSettings.AuthSettings.Login, 32);
+        ReadSetting(appSettings.AuthSettings.Password, 32);
+        //Smtp
+        ReadSetting(appSettings.EmailSettings.serverName, 64);
 
-    appSettings.EmailSettings.serverPort = ReadInt();
-    ReadSetting(appSettings.EmailSettings.userName, 64);
-    ReadSetting(appSettings.EmailSettings.passWord, 64);
-    ReadSetting(&appSettings.EmailSettings.useTls, 1);
-    //Notifications
-    for (i = 0; i < 10; i++) {
-        ReadSetting(&appSettings.Notifications[i].enable, 1);
-        ReadSetting(appSettings.Notifications[i].mail.recipients, 255);
+        appSettings.EmailSettings.serverPort = ReadInt();
+        ReadSetting(appSettings.EmailSettings.userName, 64);
+        ReadSetting(appSettings.EmailSettings.passWord, 64);
+        ReadSetting(&appSettings.EmailSettings.useTls, 1);
+        //Notifications
+        for (i = 0; i < 10; i++) {
+            ReadSetting(&appSettings.Notifications[i].enable, 1);
+            ReadSetting(appSettings.Notifications[i].mail.recipients, 255);
+        }
+    }
+    else
+    {
+        return  ERROR_FAILURE;
     }
     //CreateJsonFromSettings();
     return NO_ERROR;
+}
+int count = 0;
+bool_t empty;
+char byte = 0;
+bool_t flashIsEmpty(void)
+{
+    unsigned int data[100];
+    
+    empty = TRUE;
+    memset(data,0,100);
+     SPIFlashReadArray(0,data,arraysize(data));
+    
+    for(count=0;count<10;count++)
+    {
+        byte = data[count];
+        if(byte!=0xffffffff)
+        {
+            empty = FALSE;
+        }
+    }    
+    return empty;
 }
 
 int ReadInt(void) {

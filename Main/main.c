@@ -270,7 +270,7 @@ int_t main(void) {
         error = ReadSettingsFromFlash();
         if(error)
         {
-            reboot();
+            WriteSettingsToFlash();
         }
     }
 #endif
