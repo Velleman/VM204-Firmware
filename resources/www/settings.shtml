@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/pure-min.css">
     <link rel="stylesheet" href="css/layouts/side-menu.css">
     <link rel="stylesheet" href="css/grids-responsive-min.css">
-    <link rel="stylesheet" href=""> </head>
+    <link rel="stylesheet" href="<!--#exec cgi="CUSTOM_CSS" -->"> </head>
 <style>
     table {
         table-layout: fixed;
@@ -299,5 +299,5 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/vm204.js"></script>
-    <script src=""></script>
+    <script src="<!--#exec cgi="CUSTOM_JS" -->"></script>
 </body>

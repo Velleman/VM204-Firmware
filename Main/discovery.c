@@ -159,9 +159,9 @@ void udpDiscoveryTask(void *param) {
             if (diff == 0) {
                 ipAddr.ipv4Addr = IPV4_BROADCAST_ADDR;
                 udpSendDiscovery(discoveryContext, ipAddr, 30303);
-                memset(discoveryContext->buffer, 0, sizeof (discoveryContext->buffer));
+                memset(discoveryContext->buffer, 0, arraysize (discoveryContext->buffer));
             } else {
-                memset(discoveryContext->buffer, 0, sizeof (discoveryContext->buffer));
+                memset(discoveryContext->buffer, 0, arraysize (discoveryContext->buffer));
             }
         }
         osDelayTask(500);
@@ -173,7 +173,7 @@ void udpSendDiscovery(DiscoveryServiceContext *dcontext, IpAddr ipAddr, int port
     NetInterface* interface;
     interface = tcpIpStackGetDefaultInterface();
     char buffer[33];
-    memset(buffer, 0, sizeof (buffer));
+    memset(buffer, 0, arraysize(buffer));
     itoa(buffer, appSettings.NetworkSetting.PortWebServer, 10);
     sprintf(dcontext->buffer, "Yes?\r\n%s\r\n%s\r\n%s\r\n%s\r\n", buffer, interface->hostname, macAddrToString(&interface->macAddr, NULL), FIRMWARE_VERSION);
     error = socketSendTo(dcontext->socket, &ipAddr, port,
