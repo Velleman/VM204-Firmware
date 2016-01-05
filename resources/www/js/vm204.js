@@ -126,14 +126,14 @@ function sendEmailSettings() {
         password: $("#smtp_pass").val(),
         tls: $("#smtp_tls").prop("checked") ? 1 : 0
     };
-    $("#emailSettingsStatus").html("SAVING...");
+    $("#sendMailSettingsButton").html("SAVING...");
     $.ajax({
         type: "POST",
         url: "/email_settings",
         dataType: "text",
         data: e,
         success: function(e) {
-            "OK" == e ? ($("#emailSettingsStatus").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE EMAILSETTINGS")
+            "OK" == e ? ($("#sendMailSettingsButton").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE EMAILSETTINGS")
         }
     })
 }
@@ -160,26 +160,55 @@ function sendRequestBootloader() {
 }
 
 function sendAlarm() {
-    var e = {
-        alarm: $("#notification_select").val(),
-        enable: $("#notif_enabled_checkbox").is(":checked") ? 1 : 0,
-        recipient: $("#recipient_field").val(),
-        alarmvalue: $("#alarmvalue_field").val()
-    };
-    $("#sendAlarmButton").html("SAVING...");
-    $.ajax({
-        type: "POST",
-        url: "/alarm_settings",
-        dataType: "text",
-        data: e,
-        success: function(e) {
-            try {
-                "OK" == e ? ($("#sendAlarmButton").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE EMAILSETTINGS")
-            } catch (t) {
-                console.log(t)
-            }
-        }
-    })
+	
+	if(validateEmail($("#recipient_field").val()))
+	{
+		var e = {
+			alarm: $("#notification_select").val(),
+			enable: $("#notif_enabled_checkbox").is(":checked") ? 1 : 0,
+			recipient: $("#recipient_field").val(),
+			alarmvalue: $("#alarmvalue_field").val()
+		};
+		$("#sendAlarmButton").html("SAVING...");
+		$.ajax({
+			type: "POST",
+			url: "/alarm_settings",
+			dataType: "text",
+			data: e,
+			success: function(e) {
+				try {
+					"OK" == e ? ($("#sendAlarmButton").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE EMAILSETTINGS")
+				} catch (t) {
+					console.log(t)
+				}
+			}
+		})
+	}
+	else
+	{
+		$("#sendAlarmButton").html("INVALID EMAIL ADDRESS");
+		setTimeout(function(){$("#sendAlarmButton").html("Save");}, 5000);
+	}
+}
+
+function validateEmail(email) {
+	var emails = email.split(";");
+	var valid = false;
+	var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	for(var i = emails.length; i>0;i--)
+	{
+		if(!re.test(emails[i-1]))
+		{
+			valid = false;
+			break;
+		}
+		else
+		{
+			valid = true;
+		}
+		
+	}
+    return valid
 }
 
 function sendAuthSettings() {
@@ -209,31 +238,38 @@ function ValidateIPaddress(e) {
 
 function sendNetworkSettings() {
     if (ValidateIPaddress($("#value_ipaddress").val()) && ValidateIPaddress($("#value_gateway").val()) && ValidateIPaddress($("#value_subnetmask").val()) && ValidateIPaddress($("#value_primarydns").val()) && ValidateIPaddress($("#value_secondarydns").val())) {
-        var e = {
-            terminalport: $("#value_terminalport").val(),
-            webserverport: $("#value_webserverport").val(),
-            dhcpenable: $("#dhcp_enabled_checkbox").is(":checked") ? 1 : 0,
-            ipaddress: $("#value_ipaddress").val(),
-            gateway: $("#value_gateway").val(),
-            subnetmask: $("#value_subnetmask").val(),
-            primarydns: $("#value_primarydns").val(),
-            secondarydns: $("#value_secondarydns").val()
-        };
-        $("#sendNetworkSettingsButton").html("SAVING..."); {
-            $.ajax({
-                type: "POST",
-                url: "/network_settings",
-                dataType: "text",
-                data: e,
-                success: function(e) {
-                    try {
-                        "OK" == e ? ($("#sendNetworkSettingsButton").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE NETWORKSETTINGS")
-                    } catch (t) {
-                        console.log(t)
-                    }
-                }
-            })
-        }
+		if($("#value_webserverport").val() > 0)
+		{
+			var e = {
+				webserverport: $("#value_webserverport").val(),
+				dhcpenable: $("#dhcp_enabled_checkbox").is(":checked") ? 1 : 0,
+				ipaddress: $("#value_ipaddress").val(),
+				gateway: $("#value_gateway").val(),
+				subnetmask: $("#value_subnetmask").val(),
+				primarydns: $("#value_primarydns").val(),
+				secondarydns: $("#value_secondarydns").val()
+			};
+			
+			$("#sendNetworkSettingsButton").html("SAVING..."); {
+				$.ajax({
+					type: "POST",
+					url: "/network_settings",
+					dataType: "text",
+					data: e,
+					success: function(e) {
+						try {
+							"OK" == e ? ($("#sendNetworkSettingsButton").html("SAVED"), requestSettings()) : console.log("FAILED TO SAVE NETWORKSETTINGS")
+						} catch (t) {
+							console.log(t)
+						}
+					}
+				})
+			}
+		}
+		else
+		{
+			$("#sendNetworkSettingsButton").html("INVALID PORT NUMBER");
+		}
     } else $("#sendNetworkSettingsButton").html("INVALID IP ADDRESSES")
 }
 
@@ -256,6 +292,7 @@ function sendNames() {
         css: $("#name_custom_css").val(),
         cardname: $("#name_card").val()
     };
+	
     $("#sendNameSettingsButton").html("SAVING...");
     $.ajax({
         type: "POST",
@@ -277,20 +314,24 @@ function sliderOnInitialized() {
 }
 
 function timerRelayEvent() {
-    $.ajax({
-        type: "GET",
-        url: "/status",
-        dataType: "text",
-        success: function(e) {
-            try {
-                updateIO(e), setTimeout(function() {
-                    timerRelayEvent()
-                }, 500)
-            } catch (t) {
-                console.log(t)
-            }
-        }
-    })
+
+	if(location.pathname == "/index.shtml" || location.pathname =="/")
+	{
+		$.ajax({
+			type: "GET",
+			url: "/status",
+			dataType: "text",
+			success: function(e) {
+				try {
+					updateIO(e), setTimeout(function() {
+						timerRelayEvent()
+					}, 500)
+				} catch (t) {
+					console.log(t)
+				}
+			}
+		})
+	}
 }
 
 function updateSettings(e) {
@@ -303,7 +344,7 @@ function updateIO(e) {
         var a;
         for (a = 1; 4 >= a; a++) $("#relay" + a + "Status").html(t.relays[a - 1] ? "ON" : "OFF"), $("#pulse" + a + "Status").html(t.pulse[a - 1] ? "ACTIVE" : "ACTIVATE"), $("#input" + a + "Status").html(t.inputs[a - 1] ? "ON" : "OFF");
         var n = t.analog / 1023;
-        n *= 3.3, n *= 2, $("#analogLabel").text("Analog Value: " + n.toFixed(2) + "V")
+        n *= 3.3, n *= 2, $("#analogLabel").text("Analog value: " + n.toFixed(2) + "V")
     } catch (s) {
         console.log(s)
     }

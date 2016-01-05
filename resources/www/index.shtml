@@ -4,7 +4,7 @@
       <title>VM204 Control Page</title>
    <body>
       <div id=splashscreen><img class=splashimage id=splashimage src=vm204.png></div>
-      <meta charset=utf-8>
+      <meta charset=ISO-8859-1>
       <meta content="width=device-width,initial-scale=1" name=viewport>
       <meta content="The VM204 main page" name=description>
       <link href=css/pure-min.css rel=stylesheet>
@@ -137,22 +137,22 @@
             </div>
             <div class=content>
                <dl>
-                  <dt>Board
+                  <dt>Board name
                   <dd>
                      <!--#exec cgi="BOARD_NAME" -->
                   <dt>MAC address
                   <dd>
                      <!--#exec cgi="MAC_ADDR" -->
-                  <dt>System time
+                  <dt>System up-time
                   <dd>
                      <!--#exec cgi="SYSTEM_TIME" -->
-                  <dt>Firmware Version
+                  <dt>Firmware version
                   <dd>
                      <!--#exec cgi="FIRMWARE_VERSION" -->
-                  <dt>Analog Max Value
+                  <dt>Analog max. value
                   <dd>
                      <!--#exec cgi="AN_MAX" -->
-                  <dt>Analog Min Value
+                  <dt>Analog min. value
                   <dd>
                      <!--#exec cgi="AN_MIN" -->
                </dl>

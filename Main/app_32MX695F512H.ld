@@ -37,9 +37,7 @@ _ebase_address =  0x9D006000;
  * _BEV_EXCPT_ADDR  -- Boot exception Vector
  * _DBG_EXCPT_ADDR  -- In-circuit Debugging Exception Vector
  * _DBG_CODE_ADDR   -- In-circuit Debug Executive address
- * _DBG_CODE_SIZE   -- In-circuit Debug Executive size
- * _GEN_EXCPT_ADDR  -- General Exception Vector
- *************************************************************************/
+ * _DBG_CODE_SIZE   -- In-circuit Debug Executive si**********************************************************/
 _RESET_ADDR              = (0x9D006000 + 0x1000);
 _BEV_EXCPT_ADDR          = ((0x9D006000 + 0x1000) + 0x380);
 _DBG_EXCPT_ADDR          = ((0x9D006000 + 0x1000) + 0x480);
@@ -56,7 +54,7 @@ _GEN_EXCPT_ADDR          = _ebase_address + 0x180;
  *************************************************************************/
 MEMORY
 {
-  kseg0_program_mem    (rx)  : ORIGIN = (0x9D006000 + 0x1000 + 0x490), LENGTH = 0x81000 - (0x6000 + 0x1000 + 0x490) /* All C Files will be located here */
+  kseg0_program_mem    (rx)  : ORIGIN = (0x9D006000 + 0x1000 + 0x490), LENGTH = 0x80000 - (0x6000 + 0x1000 + 0x490) /* All C Files will be located here */
   kseg0_boot_mem             : ORIGIN = 0x9D006000, LENGTH = 0x0 /* This memory region is dummy */
   exception_mem              : ORIGIN = 0x9D006000, LENGTH = 0x1000 /* Interrupt vector table */
   kseg1_boot_mem             : ORIGIN = (0x9D006000 + 0x1000), LENGTH = 0x490 /* C Startup code */

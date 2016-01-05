@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="The VM204 main page">
     <title>VM204 Control Page</title>
@@ -64,7 +64,7 @@
                         <legend>Web interface</legend>
                         <div class="pure-control-group">
                             <label for="value_webserverport">Port:</label>
-                            <input type="number" maxlength="64" name="value_webserverport" id="value_webserverport" value="80"> </div>
+                            <input type="number" maxlength="64" name="value_webserverport" id="value_webserverport" value="80" min="1"> </div>
                     </fieldset>
                     <fieldset>
                         <legend>DHCP</legend>
@@ -121,13 +121,13 @@
                     </fieldset>
                     <div class="pure-controls">
                         <button type="submit" id="sendMailSettingsButton" class="pure-button pure-button-primary">Save</button>
-						<button type="button" id="testMailSettingsButton" class="pure-button pure-button-primary">Test Mail Settings</button>
+						<button type="button" id="testMailSettingsButton" class="pure-button pure-button-primary">Test mail settings</button>
                     </div>
                 </form>
             </div>
             <div class="header" id="customize">
                 <h1>Customize</h1>
-                <h2>Give IO names and customize the layout with javascript</h2> </div>
+                <h2>Customize the IO's names<br>Customize the layout with CSS and javascript/JQuery</h2> </div>
             <div class="content">
                 <form id="nameSettingsForm" class="pure-form pure-form-aligned">
                     <fieldset>
@@ -155,16 +155,16 @@
                         <legend>Pulse</legend>
                         <div class="pure-control-group">
                             <label for="pulse_relay1">Relay 1:</label>
-                            <input type="number" maxlength="32" name="pulse_relay1" id="pulse_relay1" min="1" max="4000000" value="1"> Seconds </div>
+                            <input type="number" maxlength="32" name="pulse_relay1" id="pulse_relay1" min="1" max="4000000" value="1"> seconds </div>
                         <div class="pure-control-group">
                             <label for="pulse_relay2">Relay 2:</label>
-                            <input type="number" maxlength="32" name="pulse_relay2" id="pulse_relay2" min="1" max="4000000" value="1"> Seconds </div>
+                            <input type="number" maxlength="32" name="pulse_relay2" id="pulse_relay2" min="1" max="4000000" value="1"> seconds </div>
                         <div class="pure-control-group">
                             <label for="pulse_relay3">Relay 3:</label>
-                            <input type="number" maxlength="32" name="pulse_relay3" id="pulse_relay3" min="1" max="4000000" value="1"> Seconds </div>
+                            <input type="number" maxlength="32" name="pulse_relay3" id="pulse_relay3" min="1" max="4000000" value="1"> seconds </div>
                         <div class="pure-control-group">
                             <label for="pulse_relay4">Relay 4:</label>
-                            <input type="number" maxlength="32" name="pulse_relay4" id="pulse_relay4" min="1" max="4000000" value="1"> Seconds </div>
+                            <input type="number" maxlength="32" name="pulse_relay4" id="pulse_relay4" min="1" max="4000000" value="1"> seconds </div>
                     </fieldset>
                     <fieldset>
                         <legend>Inputs</legend>
@@ -230,19 +230,22 @@
                             <label for="recipient_field">To:</label>
                             <input type="text" name="recipient" id="recipient_field" maxlength="64" value="recipient@example.com"> </div>
                         <div class="pure-control-group" id="alarmvalue_div">
-                            <label for="alarmvalue_field">Alarm Value:</label>
+                            <label for="alarmvalue_field">Alarm value:</label>
                             <input type="number" name="recipient" id="alarmvalue_field" value="128"> </div>
+						<div class="pure-controls">
+							<label for="notif_enabled_checkbox" class="pure-checkbox">
+                                <input type="checkbox" id="notif_enabled_checkbox">Enabled
+							</label>
+						</div>
                         <div class="pure-controls">
-                            <label for="cb" class="pure-checkbox">
-                                <input type="checkbox" id="notif_enabled_checkbox"> Enabled</label>
-                            <button type="submit" id="sendAlarmButton" class="pure-button pure-button-primary">Save</button>
+                            <button type="button" id="sendAlarmButton" class="pure-button pure-button-primary">Save</button>
                         </div>
                 </form>
             </div>
         </div>
         <div class="header" id="api">
             <h1>API</h1>
-            <h2>Get or Generate a new API key</h2> </div>
+            <h2>Get or generate a new API key</h2> </div>
         <div class="content">
             <form class="pure-form pure-form-aligned">
                 <fieldset>
@@ -255,40 +258,26 @@
                 </fieldset>
             </form>
         </div>
-        <div class="header" id="firmware">
-            <h1>Firmware Upgrade</h1>
-            <h2>Goto bootloader</h2> </div>
-        <div class="content">
-            <form class="pure-form pure-form-aligned">
-                <fieldset>
-                    <legend>Firmware Upgrade</legend>
-                    <div class="pure-control-group">
-                        <label for="requestBootloader">Goto Bootloader:</label>
-                        <button type="submit" id="requestBootloader" class="pure-button pure-button-primary">Reboot</button>
-                    </div>
-                </fieldset>
-            </form>
-        </div>
         <div class="header" id="about">
             <h1>About</h1>
             <h2>Device information</h2> </div>
         <div class="content">
-            <dl><dt>Board</dt>
+            <dl><dt>Board name</dt>
                <dd>
                     <!--#exec cgi="BOARD_NAME" -->
                 </dd><dt>MAC address</dt>
                 <dd>
                     <!--#exec cgi="MAC_ADDR" -->
-                </dd><dt>System time</dt>
+                </dd><dt>System up-time</dt>
                 <dd>
                     <!--#exec cgi="SYSTEM_TIME" -->
-                </dd><dt>Firmware Version</dt>
+                </dd><dt>Firmware version</dt>
                 <dd>
                     <!--#exec cgi="FIRMWARE_VERSION" -->
-                </dd><dt>Analog Max Value</dt>
+                </dd><dt>Analog max. value</dt>
                 <dd>
                     <!--#exec cgi="AN_MAX" -->
-                </dd> <dt>Analog Min Value</dt>
+                </dd> <dt>Analog min. value</dt>
                 <dd>
                     <!--#exec cgi="AN_MIN" -->
                 </dd>

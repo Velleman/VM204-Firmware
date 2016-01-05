@@ -234,7 +234,7 @@ error_t sendTestMail(HttpConnection* connection ) {
     mail.dateTime = strDuplicate("NOW"); //Date
     mail.subject = strDuplicate("VM204 Test Mail"); //Subject
 
-    mail.body =  strDuplicate("If you received this mail everything is OK");
+    mail.body =  strDuplicate("If you received this mail, everything is OK");
 
     //Send mail
     error = smtpSendMail(&authInfo, &mail);

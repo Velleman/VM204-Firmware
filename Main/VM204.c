@@ -148,14 +148,6 @@ error_t EraseSettings() {
     SPIFlashEraseAll();
 }
 
-void GoToBootLoader() {
-    SPIFlashInit();
-    SPIFlashBeginWrite(4095);
-    char_t boot[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-    SPIFlashWriteArray(boot, 8);
-    reboot();
-}
-
 /**
  * Saves the settings to the Flash
  * @param file  
@@ -212,6 +204,7 @@ void WriteSettingsToFlash() {
         SPIFlashWriteArray(&appSettings.Notifications[i].enable, 1);
         SPIFlashWriteArray(appSettings.Notifications[i].mail.recipients, 255);
     }
+    appSettings.defaultSettings = FALSE;
 }
 
 

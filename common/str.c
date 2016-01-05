@@ -132,6 +132,7 @@ void strReplaceChar(char_t *s, char_t oldChar, char_t newChar)
       //Remplace all occurrences of the specified character
       if(*s == oldChar)
          *s = newChar;
+      s++;
    }
 }
 

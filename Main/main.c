@@ -59,9 +59,10 @@
 #include "core/net.h"
 #include "drivers/lan8720.h"
 #include "p32xxxx.h"
+#include "str.h"
 
 //Number of simultaneous client connections
-#define APP_HTTP_MAX_CONNECTIONS 2
+#define APP_HTTP_MAX_CONNECTIONS 3
 #define NUM_TIMERS 5
 
 /* An array to hold handles to the created timers. */
@@ -257,22 +258,14 @@ int_t main(void) {
     }
 
 #if defined(SPIFLASH_CS_TRIS)
-    char rest = READFACTORYDEFAULT;
-    if(!READFACTORYDEFAULT)
-    {
-        EraseSettings();
-        LoadDefaultSettings(&appSettings.yarrowContext);
-        WriteSettingsToFlash();
-    }
-    else
-    {
         LoadDefaultSettings(&appSettings.yarrowContext);
         error = ReadSettingsFromFlash();
+        appSettings.defaultSettings = FALSE;
         if(error)
         {
             WriteSettingsToFlash();
+            appSettings.defaultSettings = TRUE;
         }
-    }
 #endif
 
 
@@ -476,6 +469,23 @@ int_t main(void) {
      appSettings.IoSettings.relays[lArrayIndex-1].PulseActive = FALSE;
  }
 
+ //*****************************************************************************
+ // DelayMs creates a delay of given miliseconds using the Core Timer
+ //
+ void DelayMs(WORD delay)
+ {
+     unsigned int int_status;
+     while( delay-- )
+     {
+         int_status = INTDisableInterrupts();
+         OpenCoreTimer(GetSystemClock() / 2000);
+         INTRestoreInterrupts(int_status);
+         mCTClearIntFlag();
+         while( !mCTGetIntFlag() );
+     }
+     mCTClearIntFlag();
+ }
+
 void ioInit(void) {
 
     initAnalog();
@@ -495,6 +505,11 @@ void ioInit(void) {
 
     TRISDCLR = 0x3D;
 
+    LATDbits.LATD0 = 1;
+    DelayMs(25);
+    LATDbits.LATD0 = 0;
+    DelayMs(25);
+    LATDbits.LATD0 = 1;
     LATDbits.LATD2 = 0;
     LATDbits.LATD3 = 0;
     LATDbits.LATD4 = 0;
@@ -507,17 +522,14 @@ void ioInit(void) {
 void blinkTask(void *parameters){
     while(TRUE)
     {
-        LATESET = LED1_MASK;
+        if(netGetDefaultInterface()->ipv4Config.addr == 0)
+            LATECLR = LED3_MASK;
+        else
+            LATESET = LED3_MASK;
+
+        LATESET = LED1_MASK | LED2_MASK;
         osDelayTask(100);
-        LATECLR = LED1_MASK;
-        osDelayTask(900);
-        LATESET = LED2_MASK;
-        osDelayTask(100);
-        LATECLR = LED2_MASK;
-        osDelayTask(900);
-        LATESET = LED3_MASK;
-        osDelayTask(100);
-        LATECLR = LED3_MASK;
+        LATECLR = LED1_MASK | LED2_MASK;
         osDelayTask(900);
         
     }
@@ -536,6 +548,7 @@ void updateTask(void *parameters) {
 
     while (netGetDefaultInterface()->ipv4Config.addr == 0) {
         osDelayTask(100);
+        ReadFactoryResetInput();
     }
     
 
@@ -593,8 +606,26 @@ void updateTask(void *parameters) {
             }
         }
         UpdateNetworkSettings();
+        ReadFactoryResetInput();
         osDelayTask(200);
     }
+}
+
+bool_t ReadFactoryResetInput()
+{
+    if(!READFACTORYDEFAULT)
+        {
+            if(appSettings.defaultSettings == FALSE)
+            {
+                osSuspendAllTasks();
+                EraseSettings();
+                LoadDefaultSettings(&appSettings.yarrowContext);
+                WriteSettingsToFlash();
+                appSettings.defaultSettings = TRUE;
+                osResumeAllTasks();
+            }
+        }
+    return TRUE;
 }
 
 bool_t checkFalling(bool_t previous,bool_t current)
@@ -833,12 +864,16 @@ error_t httpServerCgiCallback(HttpConnection *connection, const char_t *param) {
     }else if (!strcasecmp(param,password)){
         strcpy(connection->buffer,appSettings.AuthSettings.Password);
     }else if (!strcasecmp(param,nameR1)){
+        escapeQuotes(appSettings.IoSettings.relays[0].Name);
         strcpy(connection->buffer,appSettings.IoSettings.relays[0].Name);
     }else if (!strcasecmp(param,nameR2)){
+        escapeQuotes(appSettings.IoSettings.relays[1].Name);
         strcpy(connection->buffer,appSettings.IoSettings.relays[1].Name);
     }else if (!strcasecmp(param,nameR3)){
+        escapeQuotes(appSettings.IoSettings.relays[2].Name);
         strcpy(connection->buffer,appSettings.IoSettings.relays[2].Name);
     }else if (!strcasecmp(param,nameR4)){
+        escapeQuotes(appSettings.IoSettings.relays[3].Name);
         strcpy(connection->buffer,appSettings.IoSettings.relays[3].Name);
     }else if (!strcasecmp(param,timeR1)){
         ltoa(connection->buffer,appSettings.IoSettings.relays[0].PulseTime,10);
@@ -849,14 +884,19 @@ error_t httpServerCgiCallback(HttpConnection *connection, const char_t *param) {
     }else if (!strcasecmp(param,timeR4)){
         ltoa(connection->buffer,appSettings.IoSettings.relays[3].PulseTime,10);
     }else if (!strcasecmp(param,nameI1)){
+        escapeQuotes(appSettings.IoSettings.inputs[0].Name);
         strcpy(connection->buffer,appSettings.IoSettings.inputs[0].Name);
     }else if (!strcasecmp(param,nameI2)){
+        escapeQuotes(appSettings.IoSettings.inputs[1].Name);
         strcpy(connection->buffer,appSettings.IoSettings.inputs[1].Name);
     }else if (!strcasecmp(param,nameI3)){
+        escapeQuotes(appSettings.IoSettings.inputs[2].Name);
         strcpy(connection->buffer,appSettings.IoSettings.inputs[2].Name);
     }else if (!strcasecmp(param,nameI4)){
+        escapeQuotes(appSettings.IoSettings.inputs[3].Name);
         strcpy(connection->buffer,appSettings.IoSettings.inputs[3].Name);
     }else if (!strcasecmp(param,nameAn)){
+        escapeQuotes(appSettings.IoSettings.analog.Name);
         strcpy(connection->buffer,appSettings.IoSettings.analog.Name);
     }else if (!strcasecmp(param,nameAnAlarm)){
         ltoa(connection->buffer,appSettings.IoSettings.analog.AlarmValue,10);
@@ -932,6 +972,13 @@ error_t httpServerCgiCallback(HttpConnection *connection, const char_t *param) {
     
     //Send the contents of the specified environment variable
     return httpWriteStream(connection, connection->buffer, length);
+}
+
+void escapeQuotes(char * string)
+{
+    strReplaceChar(string,'"',' ');
+    strReplaceChar(string,'<',' ');
+    strReplaceChar(string,'>',' ');
 }
 
 /**
@@ -1147,9 +1194,6 @@ error_t httpServerUriNotFoundCallback(HttpConnection *connection, const char_t *
         return sendAPIKey(connection);
     }else if(!strcasecmp(connection->request.uri, "/debug")){
         return sendDebug(connection);
-    }else if(!strcasecmp(connection->request.uri, "/bootloader")){
-        GoToBootLoader();
-        return sendIoStatus(connection);
     }else if(!strcasecmp(connection->request.uri, "/testmail")){
         return sendTestMail(connection);
     } else
@@ -1203,6 +1247,7 @@ void createJsonData(char * data)
 {
 
     char analogValue[10];
+    osDelayTask(10);
     itoa(analogValue,appSettings.IoSettings.analog.Value,10);
     sprintf(data,"{\"relays\": [%s,%s,%s,%s],"
             "\"pulse\": [%s,%s,%s,%s],"
@@ -1529,9 +1574,9 @@ error_t processEmailSettings(HttpConnection *connection)
                     } else if (!strcasecmp(property, "password")) {
                         //Save password
                         strcpy(appSettings.EmailSettings.passWord,value);
-                    } else if (!strcasecmp(property, "useTls")) {
+                    } else if (!strcasecmp(property, "tls")) {
                         //Open a secure SSL/TLS session?
-                        appSettings.EmailSettings.useTls = FALSE;
+                        appSettings.EmailSettings.useTls = atoi(value);
                 }
             }
           }
@@ -1646,13 +1691,13 @@ error_t processNames(HttpConnection* connection){
                 int time;
                 //fill settings
                 if (!strcasecmp(property, r1)) {
-                    strcpy(appSettings.IoSettings.relays[0].Name, value);
+                    strncpy(appSettings.IoSettings.relays[0].Name, value, arraysize(appSettings.IoSettings.relays[0].Name));
                 } else if (!strcasecmp(property, r2)) {
-                    strcpy(appSettings.IoSettings.relays[1].Name, value);
+                    strncpy(appSettings.IoSettings.relays[1].Name, value, arraysize(appSettings.IoSettings.relays[1].Name));
                 } else if (!strcasecmp(property, r3)) {
-                    strcpy(appSettings.IoSettings.relays[2].Name, value);
+                    strncpy(appSettings.IoSettings.relays[2].Name, value, arraysize(appSettings.IoSettings.relays[2].Name));
                 } else if (!strcasecmp(property, r4)) {
-                    strcpy(appSettings.IoSettings.relays[3].Name, value);
+                    strncpy(appSettings.IoSettings.relays[3].Name, value, arraysize(appSettings.IoSettings.relays[3].Name));
                 } else if (!strcasecmp(property, p1)) {
                     time = atoi(value);
                     if(time)
@@ -1678,22 +1723,22 @@ error_t processNames(HttpConnection* connection){
                         appSettings.IoSettings.relays[3].PulseTime =  time;
                     }
                 } else if (!strcasecmp(property, i1)) {
-                    strcpy(appSettings.IoSettings.inputs[0].Name, value);
+                    strncpy(appSettings.IoSettings.inputs[0].Name, value, arraysize(appSettings.IoSettings.inputs[0].Name));
                 } else if (!strcasecmp(property, i2)) {
-                    strcpy(appSettings.IoSettings.inputs[1].Name, value);
+                    strncpy(appSettings.IoSettings.inputs[1].Name, value, arraysize(appSettings.IoSettings.inputs[1].Name));
                 } else if (!strcasecmp(property, i3)) {
-                    strcpy(appSettings.IoSettings.inputs[2].Name, value);
+                    strncpy(appSettings.IoSettings.inputs[2].Name, value, arraysize(appSettings.IoSettings.inputs[2].Name));
                 } else if (!strcasecmp(property, i4)) {
-                    strcpy(appSettings.IoSettings.inputs[3].Name, value);
+                    strncpy(appSettings.IoSettings.inputs[3].Name, value, arraysize(appSettings.IoSettings.inputs[3].Name));
                 } else if (!strcasecmp(property, an)) {
-                    strcpy(appSettings.IoSettings.analog.Name, value);
+                    strncpy(appSettings.IoSettings.analog.Name, value, arraysize(appSettings.IoSettings.analog.Name));
                 }else if (!strcasecmp(property, js)) {
-                    strcpy(appSettings.CustomJSLink, value);
+                    strncpy(appSettings.CustomJSLink, value, arraysize(appSettings.CustomJSLink));
                 }else if (!strcasecmp(property, cardname)) {
-                    strcpy(appSettings.CardName, value);
+                    strncpy(appSettings.CardName, value, arraysize(appSettings.CardName));
                     netSetHostname(interface,appSettings.CardName);
                 }else if (!strcasecmp(property, css)) {
-                    strcpy(appSettings.CustomCSSLink, value);
+                    strncpy(appSettings.CustomCSSLink, value, arraysize(appSettings.CustomCSSLink));
                 }
             }
         }
@@ -1817,10 +1862,7 @@ error_t processNetworkSettings(HttpConnection* connection){
                     strcpy(appSettings.NetworkSetting.PrimaryDNS, value);
                 } else if (!strcasecmp(property, "secondarydns")) {
                     strcpy(appSettings.NetworkSetting.SecondaryDNS, value);
-                }else if (!strcasecmp(property, "cardname")) {
-                    strcpy(appSettings.CardName, value);
                 }
-
             }
         }
     } while (0);

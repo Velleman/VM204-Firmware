@@ -88,6 +88,7 @@ extern "C" {
         DateTime date;
         char key[32];
         YarrowContext yarrowContext;
+        char defaultSettings;
     } Settings;
 
 #ifdef	__cplusplus
