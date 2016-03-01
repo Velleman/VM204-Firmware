@@ -50,7 +50,7 @@
 
 #define SD_DETECT PORTAbits.RA9
 
-#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_VERSION "1.1"
 
 #define AUTH_LOGIN "admin"
 #define AUTH_PASS "test"

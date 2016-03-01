@@ -101,11 +101,11 @@ char byte = 0;
 bool_t flashIsEmpty(void)
 {
     unsigned int data[100];
-    
+
     empty = TRUE;
     memset(data,0,100);
      SPIFlashReadArray(0,data,arraysize(data));
-    
+
     for(count=0;count<10;count++)
     {
         byte = data[count];
@@ -113,7 +113,7 @@ bool_t flashIsEmpty(void)
         {
             empty = FALSE;
         }
-    }    
+    }
     return empty;
 }
 
@@ -150,7 +150,7 @@ error_t EraseSettings() {
 
 /**
  * Saves the settings to the Flash
- * @param file  
+ * @param file
  * @return error
  */
 char* settings;
@@ -303,5 +303,4 @@ void UpdateNetworkSettings() {
     //if(changed)
     //CreateJsonFromSettings();
 }
-
 

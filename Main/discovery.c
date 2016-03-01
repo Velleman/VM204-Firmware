@@ -136,7 +136,7 @@ void udpDiscoveryTask(void *param) {
     discoveryContext = (DiscoveryServiceContext *) param;
 
     port = 30303;
-    while (tcpIpStackGetDefaultInterface()->ipv4Config.addr == 0) {
+    while (tcpIpStackGetDefaultInterface()->ipv4Config.addr == 0 || !netGetLinkState(tcpIpStackGetDefaultInterface())) {
         osDelayTask(100);
     }
     TRACE_INFO("SEND DISCOVERY\r\n");

@@ -50,7 +50,9 @@ function update_network_settings() {
         l = $("#value_subnetmask"),
         o = $("#value_primarydns"),
         i = $("#value_secondarydns");
-    e.val(json.network.terminalport), t.val(json.network.webserverport), a.prop("checked", json.network.dhcpenable), n.val(json.network.ipaddress), s.val(json.network.gateway), l.val(json.network.subnetmask), o.val(json.network.primarydns), i.val(json.network.secondarydns)
+		var dhcpenabled = true;
+    e.val(json.network.terminalport), t.val(json.network.webserverport), dhcpenabled = json.network.dhcpenable === 'true',
+    a.prop("checked", dhcpenabled), n.val(json.network.ipaddress), s.val(json.network.gateway), l.val(json.network.subnetmask), o.val(json.network.primarydns), i.val(json.network.secondarydns)
 }
 
 function update_names() {
