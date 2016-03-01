@@ -9,5 +9,9 @@ Manual
 =============
 The manual can be found at http://manuals.velleman.eu/
 
+Branch
+=============
+Please use the V1.1 for the latest version
+
 
 
